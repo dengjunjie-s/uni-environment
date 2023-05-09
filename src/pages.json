@@ -1,21 +1,66 @@
 {
   "pages": [
     {
-      "path": "pages/index/index",
+      "path": "pages/Home/index",
       "style": {
-        "navigationBarTitleText": "uni-app"
+        "navigationBarTitleText": "商协会"
+      }
+    },
+    {
+      "path": "pages/Home/AboutUs",
+      "style": {
+        "navigationBarTitleText": "关于我们"
+      }
+    },
+    {
+      "path": "pages/Me/index",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/WxLogin",
+      "style": {
+        "navigationBarTitleText": "微信登录"
       }
     }
   ],
   "globalStyle": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "商协会",
     "navigationBarBackgroundColor": "#F8F8F8",
     "backgroundColor": "#F8F8F8"
   },
   "easycom": {
     "custom": {
       "^u-(.*)": "uview-plus/components/u-$1/u-$1.vue"
+    }
+  },
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#007aff",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/Home/index",
+        "iconPath": "static/image/zhuye2.png",
+        "selectedIconPath": "static/image/zhuye.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/Me/index",
+        "iconPath": "static/image/wode2.png",
+        "selectedIconPath": "static/image/wode.png",
+        "text": "我的"
+      }
+    ],
+    "midButton": {
+      "width": "80px",
+      "height": "50px",
+      "text": "文字",
+      "iconWidth": "24px"
     }
   }
 }

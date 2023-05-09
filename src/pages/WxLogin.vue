@@ -5,16 +5,11 @@
         class="image"
         src="http://hr-middleground.oss-cn-shenzhen.aliyuncs.com/20230424133911-6d5d780385d66ab48fba5a7a9ee90db8.png"
         mode="widthFix"
-      ></image>
+      />
       <view class="titiell"> 广东省天津大学校友会 </view>
     </view>
     <view class="uButton">
-      <u-button
-        @click="getUserInfo"
-        type="success"
-        :ripple="true"
-        shape="circle"
-      >
+      <u-button @click="wxLogin" type="success" :ripple="true" shape="circle">
         <u-icon name="weixin-fill" size="40"></u-icon>
         &nbsp;微信授权登录
       </u-button>
@@ -24,37 +19,24 @@
 
 <script setup lang="ts">
 import { loginService } from '@/apis/user';
-import { onReady, onLoad } from '@dcloudio/uni-app';
 
-const runLogin = (avatar, nickname) => {
-  uni.login({
-    provider: 'weixin',
-    success: function (loginRes) {
-      loginService({
-        avatar: avatar,
-        nickname: nickname,
-        code: loginRes.code
-      }).then((res) => {
-        console.log(res);
-      });
-    }
-  });
-};
-const getUserInfo = () => {
-  uni.getUserProfile({
-    provider: 'weixin',
-    desc: '用于获取用户信息',
-    success: function (infoRes) {
-      console.log({
-        ...infoRes
-      });
-      const avatar = infoRes.userInfo.avatarUrl;
-      const nickname = infoRes.userInfo.nickName;
-      // uni.setStorageSync('avatar', avatar);
-      // uni.setStorageSync('nickname', nickname);
-      runLogin(avatar, nickname);
-    }
-  });
+const wxLogin = async () => {
+  uni.showLoading({ title: '登录中' });
+  try {
+    const loginInfo = await uni.login({
+      provider: 'weixin'
+    });
+    const wxUserInfo = await uni.getUserProfile({
+      provider: 'weixin',
+      desc: '用于获取用户信息'
+    });
+    await loginService({
+      avatar: wxUserInfo.userInfo.avatarUrl,
+      nickname: wxUserInfo.userInfo.nickName,
+      code: loginInfo.code
+    });
+  } catch (err) {}
+  uni.hideLoading();
 };
 </script>
 
