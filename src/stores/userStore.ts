@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
-import { loginService } from '@/apis/user';
+import { WxLoginService } from '@/apis/user';
+import { SetToken } from '@/utils/localStorage';
 
 export const useUserStore = defineStore('userStore', {
   state: () => {
@@ -13,22 +14,20 @@ export const useUserStore = defineStore('userStore', {
     return { userInfo, isSignIn: false };
   },
   actions: {
+    /**微信登录 phoneCode*/
     wxlogin: async function (phoneCode: string) {
       uni.showLoading({ title: '登录中' });
       try {
-        const wxUserInfo = await uni.getUserProfile({
-          provider: 'weixin',
-          desc: '用于获取用户信息'
-        });
         const loginInfo = await uni.login({
           provider: 'weixin'
         });
-        await loginService({
+        const { accessToken } = await WxLoginService({
           loginCode: loginInfo.code,
           phoneCode,
-          nickName: wxUserInfo.userInfo.nickName,
-          avatarUrl: wxUserInfo.userInfo.avatarUrl
+          nickName: '微信用户',
+          avatar: ''
         });
+        SetToken(accessToken);
       } catch (err) {
         console.log(err);
       }

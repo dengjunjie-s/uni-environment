@@ -6,17 +6,13 @@ export interface paramsType {
 import { reactive, ref } from 'vue';
 
 //分页hooks
-export default function useTurn<T>(
-  pageData: any,
-  definePageSize: number,
-  definePageNumber: number
-) {
+export default function useTurn<TItemInfo>(pageData: any) {
   const params = reactive({
     //分页数据，用于请求
-    pageNumber: definePageNumber,
-    pageSize: definePageSize
+    pageNumber: 1,
+    pageSize: 10
   });
-  const pageList = ref<T[]>([]);
+  const pageList = ref<TItemInfo[]>([]);
   const totalPages = ref(0);
   const loading = ref(true);
 
@@ -24,9 +20,8 @@ export default function useTurn<T>(
   async function loadData() {
     loading.value = true;
     try {
-      const res = await pageData(params);
-      const { content, pageable } = res;
-      content && (pageList.value = [...pageList.value, ...content]);
+      const { content, pageable }: TPageBase<any> = await pageData(params);
+      content && (pageList.value = content);
       pageable && (totalPages.value = pageable.totalPages);
     } catch (err) {
       console.log(err);
@@ -46,7 +41,7 @@ export default function useTurn<T>(
 
   const refreshPage = () => {
     totalPages.value = 0;
-    params.pageNumber = definePageNumber;
+    params.pageNumber = 1;
     pageList.value = [];
     loadData();
   };

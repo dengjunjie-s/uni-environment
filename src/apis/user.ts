@@ -1,8 +1,11 @@
 import requredService from '@/utils/request';
 
-export const loginService = (data: any) =>
-  requredService({
-    url: '/app/auth/weixin',
+/**微信登录接口,返回token */
+export const WxLoginService = (data: any) =>
+  requredService<{ accessToken: string }>({
+    url: '/base/v1/user/weChatAppletLogin',
     data,
-    method: 'POST'
+    method: 'POST',
+    noToken: true,
+    successMessage: '登录成功'
   });

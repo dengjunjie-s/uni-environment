@@ -13,13 +13,6 @@
 import { useUserStore } from '@/stores/userStore';
 const userStore = useUserStore();
 const getphonenumber = async (e) => {
-  // const wxUserInfo = await uni.getUserProfile({
-  //   provider: 'weixin'
-  // });
-  // const loginInfo = await uni.login({
-  //   provider: 'weixin'
-  // });
-  // console.log(wxUserInfo);
   userStore.wxlogin(e.detail.code);
 };
 </script>

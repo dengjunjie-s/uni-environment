@@ -4,5 +4,5 @@
 export const getBaseUrl = () => {
   return process.env.NODE_ENV === 'production'
     ? 'https://school.linkease.net.cn'
-    : 'https://school.linkease.net.cn';
+    : 'http://cyt.linkease.net.cn:8888';
 };

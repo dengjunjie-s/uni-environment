@@ -18,21 +18,21 @@
 </template>
 
 <script setup lang="ts">
-import { loginService } from '@/apis/user';
+import { WxLoginService } from '@/apis/user';
 
 const wxLogin = async () => {
   uni.showLoading({ title: '登录中' });
   try {
-    const loginInfo = await uni.login({
-      provider: 'weixin'
-    });
     const wxUserInfo = await uni.getUserProfile({
       provider: 'weixin',
       desc: '用于获取用户信息'
     });
-    await loginService({
-      avatar: wxUserInfo.userInfo.avatarUrl,
-      nickname: wxUserInfo.userInfo.nickName,
+    const loginInfo = await uni.login({
+      provider: 'weixin'
+    });
+    await WxLoginService({
+      avatar: '',
+      nickname: '微信用户',
       code: loginInfo.code
     });
   } catch (err) {}
