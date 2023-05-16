@@ -1,7 +1,7 @@
 import { getBaseUrl } from './baseUrl';
 import { GetToken } from '../localStorage';
 interface TRequredOption {
-  /**请求的baseUrl,不传用默认 */
+  /**请求的baseUrl,不传用默认getBaseUrl */
   baseUrl?: string;
   /**请求的路径， */
   url: string;
@@ -13,7 +13,7 @@ interface TRequredOption {
   noToken?: boolean;
   /**请求头 */
   header?: any;
-  /**请求成功后弹出提示，没有泽不弹 */
+  /**请求成功后弹出提示，没有泽不弹*/
   successMessage?: string;
   /**请求是是否showLoading，请求结束自动关闭 */
   isLoading?: boolean;

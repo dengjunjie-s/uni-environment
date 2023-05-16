@@ -30,22 +30,7 @@
         </view>
       </u-scroll-list>
     </view>
-    <u-sticky bgColor="#fff">
-      <u-tabs
-        :list="[
-          {
-            name: '关注'
-          },
-          {
-            name: '推荐'
-          },
-          {
-            name: '电影'
-          }
-        ]"
-        @click="tabsClick"
-      ></u-tabs>
-    </u-sticky>
+    <NewsList />
   </view>
 </template>
 
@@ -54,6 +39,8 @@ import guanyuwomen from '@/static/image/guanyuwomen.png';
 import huiyuanzhanshi from '@/static/image/huiyuanzhanshi.png';
 import shenqingruhui from '@/static/image/shenqingruhui.png';
 import lianxiwomen from '@/static/image/lianxiwomen.png';
+
+import NewsList from './News/components/NewsList.vue';
 const swiperImgList = ref([
   'https://cdn.uviewui.com/uview/swiper/swiper3.png',
   'https://cdn.uviewui.com/uview/swiper/swiper2.png',
@@ -91,6 +78,7 @@ const tabsClick = () => {
 <style scoped lang="scss">
 .container {
   background: rgb(248, 248, 248);
+
   .header {
     background: #fff;
     padding: 20rpx;
@@ -115,6 +103,7 @@ const tabsClick = () => {
     border-radius: 15rpx;
     .moduleItem {
       text-align: center;
+      font-size: 26rpx;
       margin: 0 30rpx;
     }
   }

@@ -18,12 +18,6 @@
         "navigationBarTitleText": "我的",
         "navigationStyle": "custom"
       }
-    },
-    {
-      "path": "pages/WxLogin",
-      "style": {
-        "navigationBarTitleText": "微信登录"
-      }
     }
   ],
   "globalStyle": {

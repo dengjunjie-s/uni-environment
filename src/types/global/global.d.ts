@@ -4,8 +4,8 @@ declare global {
   /**环境变量字段 */
   const process: any;
   /**分页基础字段*/
-  interface TPageBase<T> {
-    content: T[];
+  interface TPageBase<TContent> {
+    content?: TContent[];
     pageable: {
       /**
        * 当前的页数
@@ -25,7 +25,11 @@ declare global {
       totalPages: number;
     };
   }
-  /**分页请求字段*/
+  /**
+   * 分页请求字段
+   * @pageNumber 请求的页数
+   * @pageSize 请求的数量
+   */
   interface TPageParams {
     /**请求的页数*/
     pageNumber: number;
