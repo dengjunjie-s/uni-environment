@@ -6,8 +6,8 @@
       "@/*": ["./src/*"]
     },
     "lib": ["esnext", "dom"],
-    "types": ["@dcloudio/types","node"]
+    "types": ["@dcloudio/types", "node"]
   },
   "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist","auto-imports.d.ts"]
 }
