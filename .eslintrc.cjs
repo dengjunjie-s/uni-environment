@@ -8,6 +8,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:vue/vue3-essential',
     'plugin:@typescript-eslint/recommended',
+    './.eslintrc-auto-import.json',
     'plugin:prettier/recommended' //必须放在最后面
   ],
   parser: 'vue-eslint-parser',

@@ -7,5 +7,5 @@ export const WxLoginService = (data: any) =>
     data,
     method: 'POST',
     noToken: true,
-    successMessage: '登录成功'
+    successMsg: '登录成功'
   });

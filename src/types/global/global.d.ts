@@ -1,8 +1,6 @@
 export {};
 
 declare global {
-  /**环境变量字段 */
-  const process: any;
   /**分页基础字段*/
   interface TPageBase<TContent> {
     content?: TContent[];

@@ -11,7 +11,7 @@ node_modules
 .DS_Store
 dist
 *.local
-
+.eslintrc-auto-import.json
 auto-imports.d.ts
 # Editor directories and files
 .idea
