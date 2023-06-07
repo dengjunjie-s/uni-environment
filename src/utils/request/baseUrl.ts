@@ -3,7 +3,7 @@
 export const getBaseUrl = () => {
   return process.env.NODE_ENV === 'production'
     ? 'https://school.linkease.net.cn'
-    : 'http://cyt.linkease.net.cn:8888';
+    : 'http://192.168.0.108:8080';
 };
 
 /**基础baseurl */
