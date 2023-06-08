@@ -30,7 +30,7 @@ const requredService = async <TBackType>(option: TRequredOption) => {
   const header: any = option.header ? option.header : {};
   option.noToken || (header['Authorization'] = `Bearer ${GetToken()}`);
   try {
-    const res = await uni.request({
+    const res: any = await uni.request({
       url: (option.baseUrl || getBaseUrl()) + option.url,
       method: option.method,
       header: header,
@@ -49,7 +49,7 @@ const requredService = async <TBackType>(option: TRequredOption) => {
     }
     uni.showToast({ title: res.statusCode + ':请检查网络设置', icon: 'none' });
     return Promise.reject(res.statusCode + ':请求失败');
-  } catch (err) {
+  } catch (err: any) {
     loadingMsg && uni.hideLoading();
     uni.showToast({ title: '网络请求失败:' + err.errMsg, icon: 'none' });
     return Promise.reject('请求失败' + err.errMsg);

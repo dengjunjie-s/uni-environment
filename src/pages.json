@@ -1,22 +1,9 @@
 {
   "pages": [
     {
-      "path": "pages/Home/index",
+      "path": "pages/Login",
       "style": {
-        "navigationBarTitleText": "商协会"
-      }
-    },
-    {
-      "path": "pages/Home/AboutUs",
-      "style": {
-        "navigationBarTitleText": "关于我们"
-      }
-    },
-    {
-      "path": "pages/Me/index",
-      "style": {
-        "navigationBarTitleText": "我的",
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "登录"
       }
     }
   ],

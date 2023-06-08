@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { useUserStore } from '@/stores/userStore';
 const userStore = useUserStore();
-const getphonenumber = async (e) => {
+const getphonenumber = async (e: any) => {
   userStore.wxlogin(e.detail.code);
 };
 </script>
