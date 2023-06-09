@@ -7,6 +7,13 @@ export const LoginService = (data: any) =>
     data,
     method: 'POST',
     noToken: true,
-    successMsg: '登录成功',
-    loadingMsg: '登录中'
+    successMsg: '登录成功'
+  });
+
+/**微信登录接口,返回token */
+export const GetUserInfo = () =>
+  requredService({
+    url: '/keep/staff/token',
+    method: 'POST',
+    successMsg: '登录成功'
   });

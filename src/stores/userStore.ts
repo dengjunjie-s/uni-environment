@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { LoginService } from '@/apis/user';
+import { LoginService, GetUserInfo } from '@/apis/user';
 import { SetToken } from '@/utils/localStorage';
 
 export const useUserStore = defineStore('userStore', {
@@ -19,6 +19,7 @@ export const useUserStore = defineStore('userStore', {
       try {
         const { access_token } = await LoginService(form);
         SetToken(access_token);
+        await GetUserInfo();
         return Promise.resolve();
       } catch (err) {
         return Promise.reject(err);

@@ -25,9 +25,6 @@
     <view class="formItem">
       <u-button type="success" @click="wxlogin"> 微信登录 </u-button>
     </view>
-    <!-- <u-button open-type="getPhoneNumber" @getphonenumber="getphonenumber">
-      获取手机号
-    </u-button> -->
   </view>
 </template>
 
@@ -50,7 +47,7 @@ const sub = async () => {
     });
   }
   await userStore.wxlogin(form);
-  uni.redirectTo({ url: 'pages/Home/index' });
+  uni.redirectTo({ url: 'pages/Coach/index' });
 };
 const wxlogin = async () => {
   const loginInfo: any = await uni.login({
@@ -58,7 +55,7 @@ const wxlogin = async () => {
   });
   await userStore.wxlogin({ wxCode: loginInfo.code });
   uni.redirectTo({
-    url: '/pages/Home/index'
+    url: '/pages/Coach/index'
   });
 };
 </script>

@@ -6,7 +6,7 @@ interface TRequredOption {
   /**请求的路径， */
   url: string;
   /**请求的数据 */
-  data: any;
+  data?: any;
   /**请求的类型 */
   method?: any;
   /**请求是否不传token，默认false */

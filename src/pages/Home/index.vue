@@ -54,15 +54,6 @@ const moduleList = ref([
   },
   { img: huiyuanzhanshi, name: '会员展示' },
   { img: shenqingruhui, name: '申请入会' },
-  { img: lianxiwomen, name: '联系我们' },
-  { img: huiyuanzhanshi, name: '会员展示' },
-  { img: shenqingruhui, name: '申请入会' },
-  { img: lianxiwomen, name: '联系我们' },
-  { img: huiyuanzhanshi, name: '会员展示' },
-  { img: shenqingruhui, name: '申请入会' },
-  { img: lianxiwomen, name: '联系我们' },
-  { img: huiyuanzhanshi, name: '会员展示' },
-  { img: shenqingruhui, name: '申请入会' },
   { img: lianxiwomen, name: '联系我们' }
 ]);
 
