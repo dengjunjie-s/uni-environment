@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { useUserStore } from '@/stores/userStore';
+import useUserStore from '@/stores/userStore';
 import ggbony from '@/static/image/ggbony.png';
 const userStore = useUserStore();
 
@@ -47,7 +47,7 @@ const sub = async () => {
     });
   }
   await userStore.wxlogin(form);
-  uni.redirectTo({ url: 'pages/Coach/index' });
+  uni.redirectTo({ url: '/pages/Coach/Me/index' });
 };
 const wxlogin = async () => {
   const loginInfo: any = await uni.login({
@@ -55,14 +55,17 @@ const wxlogin = async () => {
   });
   await userStore.wxlogin({ wxCode: loginInfo.code });
   uni.redirectTo({
-    url: '/pages/Coach/index'
+    url: '/pages/Coach/Me/index'
   });
 };
+wxlogin();
 </script>
 
 <style scoped lang="scss">
 .canteiner {
   padding: 20px;
+  // background: $my-bg;
+  height: calc(100vh - 40px);
   .formItem {
     margin-bottom: 20rpx;
   }

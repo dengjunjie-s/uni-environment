@@ -14,9 +14,9 @@ export default function useTurn<TItemInfo>(
   async function loadData() {
     loading.value = true;
     try {
-      const { content, pageable } = await pageData(params);
-      content && (pageList.value = content);
-      pageable && (totalPages.value = pageable.totalPages);
+      const res = await pageData(params);
+      res?.content && (pageList.value = [...pageList.value, ...res.content]);
+      res?.pageable && (totalPages.value = res.pageable.totalPages);
     } catch (err) {
       console.log(err);
     }

@@ -1,29 +1,42 @@
 import { defineStore } from 'pinia';
 import { LoginService, GetUserInfo } from '@/apis/user';
+import { TuserInfo } from '@/types/user';
 import { SetToken } from '@/utils/localStorage';
 
-export const useUserStore = defineStore('userStore', {
+export default defineStore('userStore', {
   state: () => {
-    const userInfo: {
-      name?: string;
-      avatar?: string;
-    } = {
-      avatar: 'https://cn.bing.com/rp/tfpoqzYv42r7UjQvzw0PVIoT2nY.png',
-      name: '123123'
-    };
-    return { userInfo, isSignIn: false };
+    const userInfo: TuserInfo = {};
+    const userId = 0;
+    return { userInfo, userId };
   },
   actions: {
     /**微信登录 phoneCode*/
-    wxlogin: async function (form: any) {
+    async wxlogin(form: any) {
+      uni.showLoading({ title: '登录中' });
       try {
-        const { access_token } = await LoginService(form);
+        const { access_token, userId } = await LoginService(form);
         SetToken(access_token);
-        await GetUserInfo();
+        this.userId = userId;
+        await this.getUserInfo();
+        uni.hideLoading();
+        return Promise.resolve();
+      } catch (err) {
+        uni.hideLoading();
+        return Promise.reject(err);
+      }
+    },
+    async getUserInfo() {
+      try {
+        const info = await GetUserInfo(this.userId);
+        Object.assign(this.userInfo, info);
         return Promise.resolve();
       } catch (err) {
         return Promise.reject(err);
       }
+    },
+    loadOut() {
+      SetToken('');
+      uni.redirectTo({ url: '/pages/Login' });
     }
   }
 });

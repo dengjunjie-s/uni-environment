@@ -7,17 +7,40 @@
       }
     },
     {
-      "path": "pages/Coach/index",
+      "path": "pages/Coach/Me/index",
       "style": {
-        "navigationStyle": "custom"
+        "navigationBarTitleText": "我"
+      }
+    },
+    {
+      "path": "pages/Coach/Me/UserInfo",
+      "style": {
+        "navigationBarTitleText": "个人信息"
+      }
+    },
+    {
+      "path": "pages/Coach/Me/UserTags",
+      "style": {
+        "navigationBarTitleText": "个人标签"
+      }
+    },
+    {
+      "path": "pages/Coach/Me/Album/AlbumList",
+      "style": {
+        "navigationBarTitleText": "相册"
+      }
+    },
+    {
+      "path": "pages/Coach/Me/Album/AlbumDetails",
+      "style": {
+        "navigationBarTitleText": "相册详情"
       }
     }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "black",
+    "navigationBarTextStyle": "white",
     "navigationBarTitleText": "商协会",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "#2b3167"
   },
   "easycom": {
     "custom": {
