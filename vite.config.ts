@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import * as uniDcloudio from '@dcloudio/uni-app';
 import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
 import uni from '@dcloudio/vite-plugin-uni';
 
 /** 自动引入@dcloudio/uni-app包内的函数 */
@@ -25,5 +26,11 @@ export default defineConfig({
         enabled: true
       }
     })
+    // Components({
+    //   dirs: ['src/components', 'node_modules/uview-plus/components'],
+    //   extensions: ['vue'],
+    //   dts: './src/types/global/components.d.ts',
+    //   resolvers: []
+    // })
   ]
 });

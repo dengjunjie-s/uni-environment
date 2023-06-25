@@ -1,25 +1,13 @@
 <template>
-  <PageHeader title="相册列表">
+  <PageHeader title="课程种类">
     <view class="cantainer">
       <scroll-view scroll-y class="scrollBox" @scrolltolower="nextPage">
         <view v-for="item in pageList" :key="item.id" class="item">
           <view class="item-title">
-            {{ item.title }}
+            {{ item.name }}
           </view>
-          <view class="item-image">
-            <view
-              v-for="(img, index) in getImgList(item.albumList)"
-              :key="img"
-              class="image"
-            >
-              <u-image
-                width="210rpx"
-                height="210rpx"
-                :src="img"
-                :lazy-load="true"
-                v-if="index < 3"
-              />
-            </view>
+          <view class="item-image" v-if="item.remark">
+            {{ item.remark }}
           </view>
           <view class="item-but">
             <view>
@@ -49,7 +37,7 @@
         </view>
       </scroll-view>
       <view class="but">
-        <u-button type="primary" text="新增相册" @click="toDetails()" />
+        <u-button type="primary" text="新增种类" @click="toDetails()" />
       </view>
     </view>
   </PageHeader>
@@ -57,33 +45,23 @@
 
 <script setup lang="ts">
 import useTurn from '@/hooks/useTurn';
-import { GetAlbumPage, DelAlbums } from '@/apis/album';
-import useUserStore from '@/stores/userStore';
-const userStore = useUserStore();
+import { GetCourseTypePage, DelCourseTypes } from '@/apis/Course';
+
 const { pageList, nextPage, refreshPage } = useTurn(
   async (params: TPageParams) => {
-    return await GetAlbumPage({ ...params, staffId: userStore.userId });
+    return await GetCourseTypePage(params);
   }
 );
-
-const getImgList = (str?: string) => {
-  try {
-    const list = JSON.parse(str + '');
-    return Array.isArray(list) ? list : [];
-  } catch (err) {
-    return [];
-  }
-};
 
 const toDetails = (item?: any) => {
   uni.navigateTo({
     url:
-      '/pages/Coach/Me/Album/AlbumDetails' +
+      '/pages/Coach/Me/CourseType/CourseTypeDetails' +
       (item ? '?data=' + JSON.stringify(item) : '')
   });
 };
 const toDel = async (ids: any[]) => {
-  await DelAlbums(ids);
+  await DelCourseTypes(ids);
   refreshPage();
 };
 </script>

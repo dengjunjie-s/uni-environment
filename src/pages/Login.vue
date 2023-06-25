@@ -47,7 +47,7 @@ const sub = async () => {
     });
   }
   await userStore.wxlogin(form);
-  uni.redirectTo({ url: '/pages/Coach/Me/index' });
+  uni.redirectTo({ url: '/pages/Coach/index' });
 };
 const wxlogin = async () => {
   const loginInfo: any = await uni.login({
@@ -55,7 +55,7 @@ const wxlogin = async () => {
   });
   await userStore.wxlogin({ wxCode: loginInfo.code });
   uni.redirectTo({
-    url: '/pages/Coach/Me/index'
+    url: '/pages/Coach/index'
   });
 };
 wxlogin();

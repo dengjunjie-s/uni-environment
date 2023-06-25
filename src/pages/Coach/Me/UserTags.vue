@@ -1,38 +1,44 @@
 <template>
-  <view class="tagBox">
-    <view class="tagBox-item" v-for="item in defaultList" :key="item">
-      <u-tag
-        :text="item"
-        :plain="!chocieList.includes(item)"
-        type="primary"
-        :name="item"
-        plainFill
-        @click="tagClick(item)"
-      />
+  <PageHeader title="个人标签">
+    <view class="tagBox">
+      <view class="tagBox-item" v-for="item in defaultList" :key="item">
+        <u-tag
+          :text="item"
+          :plain="!chocieList.includes(item)"
+          type="primary"
+          :name="item"
+          plainFill
+          @click="tagClick(item)"
+        />
+      </view>
+      <view class="tagBox-item">
+        <u-tag
+          text="添加自定义标签"
+          type="primary"
+          @click="openPopup"
+          icon="plus"
+          :plain="false"
+        />
+      </view>
     </view>
-    <view class="tagBox-item">
-      <u-tag
-        text="添加自定义标签"
-        type="primary"
-        @click="openPopup"
-        icon="plus"
-        :plain="false"
-      />
-    </view>
-  </view>
-  <view class="but">
-    <u-button type="primary" text="保存" @click="sub" />
-  </view>
-  <PopupVertical :show="popupShow" height="100rvh">
-    <u-input placeholder="请输入新增标签名称" v-model="addTagName" clearable />
-
     <view class="but">
-      <u-button type="primary" text="确认新增" @click="addTag" />
+      <u-button type="primary" text="保存" @click="sub" />
     </view>
-  </PopupVertical>
+    <PopupVertical :show="popupShow" height="100rvh">
+      <u-input
+        placeholder="请输入新增标签名称"
+        v-model="addTagName"
+        clearable
+      />
+      <view class="but">
+        <u-button type="primary" text="确认新增" @click="addTag" />
+      </view>
+    </PopupVertical>
+  </PageHeader>
 </template>
 
 <script setup lang="ts">
+import PageHeader from '@/components/PageHeader.vue';
 import useUserStore from '@/stores/userStore';
 import { EditUserInfo } from '@/apis/user';
 import PopupVertical from '@/components/PopupVertical.vue';

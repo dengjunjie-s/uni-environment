@@ -39,11 +39,14 @@ const requredService = async <TBackType>(option: TRequredOption) => {
     loadingMsg && uni.hideLoading();
     if (res.statusCode === 200) {
       const { code, data, msg } = res.data as TBackData<TBackType>;
+
+      loadingMsg && uni.hideLoading();
       if (code === 200) {
         successMsg && uni.showToast({ title: successMsg, icon: 'none' });
         return Promise.resolve(data);
       } else {
         uni.showToast({ title: code + ':' + msg, icon: 'none' });
+        console.log(JSON.stringify(option.data), option.url);
         return Promise.reject(data);
       }
     }
@@ -51,6 +54,7 @@ const requredService = async <TBackType>(option: TRequredOption) => {
     return Promise.reject(res.statusCode + ':请求失败');
   } catch (err: any) {
     loadingMsg && uni.hideLoading();
+    console.log(JSON.stringify(option.data), option.url);
     uni.showToast({ title: '网络请求失败:' + err.errMsg, icon: 'none' });
     return Promise.reject('请求失败' + err.errMsg);
   }

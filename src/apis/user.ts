@@ -1,5 +1,5 @@
 import requredService from '@/utils/request';
-import { TuserInfo } from '@/types/user';
+import { TuserInfo, Tfeetback } from '@/types/user';
 import { getBaseUrl } from '@/utils/request/baseUrl';
 
 /**微信登录接口,返回token */
@@ -15,7 +15,7 @@ export const LoginService = (data: any) =>
 export const UploadFileRequre = (url: any) =>
   new Promise((resolve, reject) => {
     uni.uploadFile({
-      url: getBaseUrl() + '/高裕韬是傻逼',
+      url: getBaseUrl() + '/keep/coach/file',
       filePath: url,
       name: 'file',
       success(res) {
@@ -31,15 +31,22 @@ export const UploadFileRequre = (url: any) =>
 /**获取用户信息 */
 export const GetUserInfo = (id: any) =>
   requredService<TuserInfo>({
-    url: '/keep/staff/token',
+    url: '/keep/staff',
     method: 'get',
     data: { id }
   });
 
-/**获取用户信息 */
+/**修改用户信息 */
 export const EditUserInfo = (data: TuserInfo) =>
   requredService({
     url: '/keep/staff/personal',
+    method: 'post',
+    data: data
+  });
+
+export const AddFeetback = (data: Tfeetback) =>
+  requredService({
+    url: '/韬哥反馈',
     method: 'post',
     data: data
   });

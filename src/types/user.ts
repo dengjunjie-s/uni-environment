@@ -40,7 +40,7 @@ export interface TuserInfo {
   /**
    * 昵称
    */
-  nickname?: string;
+  name?: string;
   /**
    * 学校
    */
@@ -63,4 +63,13 @@ export interface CourseResp {
   Id?: number;
   Name?: string;
   Remark?: string;
+}
+
+/**用户反馈字段 */
+
+export interface Tfeetback {
+  id?: number;
+  staffId?: number;
+  text?: string;
+  phoneOrMail?: string;
 }

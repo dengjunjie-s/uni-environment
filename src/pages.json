@@ -1,46 +1,18 @@
 {
   "pages": [
-    {
-      "path": "pages/Login",
-      "style": {
-        "navigationBarTitleText": "登录"
-      }
-    },
-    {
-      "path": "pages/Coach/Me/index",
-      "style": {
-        "navigationBarTitleText": "我"
-      }
-    },
-    {
-      "path": "pages/Coach/Me/UserInfo",
-      "style": {
-        "navigationBarTitleText": "个人信息"
-      }
-    },
-    {
-      "path": "pages/Coach/Me/UserTags",
-      "style": {
-        "navigationBarTitleText": "个人标签"
-      }
-    },
-    {
-      "path": "pages/Coach/Me/Album/AlbumList",
-      "style": {
-        "navigationBarTitleText": "相册"
-      }
-    },
-    {
-      "path": "pages/Coach/Me/Album/AlbumDetails",
-      "style": {
-        "navigationBarTitleText": "相册详情"
-      }
-    }
+    { "path": "pages/Login" },
+    { "path": "pages/Coach/index" },
+    { "path": "pages/Coach/Me/UserInfo" },
+    { "path": "pages/Coach/Me/UserTags" },
+    { "path": "pages/Coach/Me/Setting/index" },
+    { "path": "pages/Coach/Me/Setting/Feedback" },
+    { "path": "pages/Coach/Me/Album/AlbumList" },
+    { "path": "pages/Coach/Me/Album/AlbumDetails" },
+    { "path": "pages/Coach/Me/CourseType/CourseTypeList" },
+    { "path": "pages/Coach/Me/CourseType/CourseTypeDetails" }
   ],
   "globalStyle": {
-    "navigationBarTextStyle": "white",
-    "navigationBarTitleText": "商协会",
-    "navigationBarBackgroundColor": "#2b3167"
+    "navigationStyle": "custom"
   },
   "easycom": {
     "custom": {

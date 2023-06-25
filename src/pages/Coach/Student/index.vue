@@ -1,5 +1,5 @@
 <template>
-  <PageHeader title="相册列表">
+  <PageHeader title="学员列表">
     <view class="cantainer">
       <scroll-view scroll-y class="scrollBox" @scrolltolower="nextPage">
         <view v-for="item in pageList" :key="item.id" class="item">
@@ -58,11 +58,10 @@
 <script setup lang="ts">
 import useTurn from '@/hooks/useTurn';
 import { GetAlbumPage, DelAlbums } from '@/apis/album';
-import useUserStore from '@/stores/userStore';
-const userStore = useUserStore();
+
 const { pageList, nextPage, refreshPage } = useTurn(
   async (params: TPageParams) => {
-    return await GetAlbumPage({ ...params, staffId: userStore.userId });
+    return await GetAlbumPage(params);
   }
 );
 
