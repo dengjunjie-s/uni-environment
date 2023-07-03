@@ -1,8 +1,8 @@
 <template>
-  <Transition>
+  <view class="transition">
     <Me v-if="tabbarValue === '我的'" />
     <Student v-if="tabbarValue === '学员'" />
-  </Transition>
+  </view>
   <u-tabbar v-model:value="tabbarValue" fixed placeholder safeAreaInsetBottom>
     <u-tabbar-item
       v-for="item in tabbarList"
@@ -31,4 +31,8 @@ const tabbarList = [
 ];
 </script>
 
-<style scoped></style>
+<style scoped>
+.transition {
+  height: 100%;
+}
+</style>

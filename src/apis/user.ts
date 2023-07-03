@@ -1,6 +1,7 @@
 import requredService from '@/utils/request';
 import { TuserInfo, Tfeetback } from '@/types/user';
 import { getBaseUrl } from '@/utils/request/baseUrl';
+import { GetToken } from '@/utils/localStorage';
 
 /**微信登录接口,返回token */
 export const LoginService = (data: any) =>
@@ -18,6 +19,9 @@ export const UploadFileRequre = (url: any) =>
       url: getBaseUrl() + '/keep/coach/file',
       filePath: url,
       name: 'file',
+      header: {
+        Authorization: `Bearer ${GetToken()}`
+      },
       success(res) {
         const data = JSON.parse(res.data + '');
         resolve(data.data);

@@ -30,8 +30,8 @@ declare global {
    */
   interface TPageParams {
     /**请求的页数*/
-    pageNumber: number;
+    page: number;
     /**请求的数量*/
-    pageSize: number;
+    size: number;
   }
 }

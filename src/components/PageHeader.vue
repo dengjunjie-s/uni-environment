@@ -1,37 +1,68 @@
 <template>
-  <view class="container">
+  <view class="pageHeader">
     <u-navbar
       placeholder
       safeAreaInsetTop
       fixed
+      :border="false"
       :title="title"
       :bgColor="bg"
-      @rightClick="backFun"
       :autoBack="showBack"
       :titleStyle="{
         color: '#fff'
       }"
     >
-      <template #right> </template>
+      <template #left>
+        <view v-if="showBack" @click="back">
+          <u-icon bold name="arrow-left" color="#fff" />
+        </view>
+      </template>
     </u-navbar>
-    <slot />
+    <view :style="{ background: bg }" v-if="!!slots.top" class="pageHeader-top">
+      <slot name="top" />
+    </view>
+    <view
+      :style="{
+        background: bodyBg,
+        padding: bodyPadding
+      }"
+    >
+      <slot />
+    </view>
   </view>
 </template>
 
 <script setup lang="ts">
 const props = withDefaults(
   defineProps<{
-    title: string;
+    title?: string;
     backFun?: any;
     showBack?: boolean;
-    bg: string;
+    bg?: string;
+    bodyBg?: string;
+    bodyPadding?: string;
   }>(),
   {
-    showBack: false,
-    backFun: () => uni.navigateBack,
-    bg: '#2b3167'
+    showBack: true,
+    bg: '#2b3167',
+    bodyBg: '#ffffff',
+    bodyPadding: ''
   }
 );
+const slots = useSlots();
+const back = () => {
+  props.backFun ? props.backFun : uni.navigateBack();
+};
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.pageHeader {
+  height: 100%;
+  background: #000;
+  &-top {
+    height: 44px;
+    padding: 0 30rpx;
+    color: #fff;
+  }
+}
+</style>

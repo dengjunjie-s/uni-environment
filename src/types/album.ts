@@ -11,5 +11,5 @@ export interface Talbum {
   /**
    * 关联userid
    */
-  userId?: number;
+  staffId?: number;
 }

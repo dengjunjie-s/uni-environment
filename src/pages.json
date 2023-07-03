@@ -12,7 +12,8 @@
     { "path": "pages/Coach/Me/CourseType/CourseTypeDetails" }
   ],
   "globalStyle": {
-    "navigationStyle": "custom"
+    "navigationStyle": "custom",
+    "backgroundColor": "#f0f0f0"
   },
   "easycom": {
     "custom": {

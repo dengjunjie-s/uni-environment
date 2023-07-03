@@ -1,23 +1,15 @@
 <template>
-  <PageHeader title="相册详情">
-    <view class="cantainer">
-      <u-form
-        :model="formData"
-        ref="refForm"
-        :rules="rules"
-        labelPosition="top"
-        labelWidth="100%"
-      >
-        <u-form-item label="相册标题:">
-          <u-input v-model="formData.title" />
-        </u-form-item>
-        <u-form-item label="照片:">
-          <UploadFile v-model:fileList="imgList" :mex="12" />
-        </u-form-item>
-      </u-form>
-      <view class="but">
-        <u-button type="primary" :text="title" @click="toSub()" />
-      </view>
+  <PageHeader title="相册详情" bodyPadding="30rpx">
+    <u-form ref="refForm" labelPosition="top" labelWidth="100%">
+      <u-form-item label="相册标题:">
+        <u-input v-model="formData.title" />
+      </u-form-item>
+      <u-form-item label="照片:">
+        <UploadFile v-model:fileList="imgList" :mex="12" />
+      </u-form-item>
+    </u-form>
+    <view class="but">
+      <u-button type="primary" :text="title" @click="toSub()" />
     </view>
   </PageHeader>
 </template>
@@ -35,18 +27,10 @@ onLoad(({ data }: any) => {
     const form: Talbum = JSON.parse(data);
     Object.assign(formData, form);
   } catch (err) {
-    formData.userId = userStore.userId;
+    formData.staffId = userStore.userId;
   }
+  formData.staffId = userStore.userId;
 });
-
-const rules = {
-  title: {
-    type: 'string',
-    required: true,
-    message: '请填写相册标题',
-    trigger: ['blur', 'change']
-  }
-};
 
 const refForm = ref();
 const imgList = computed<string[]>({
@@ -64,7 +48,11 @@ const imgList = computed<string[]>({
 });
 
 const toSub = async () => {
-  if (!((await refForm.value.validate()) === true)) return;
+  if (!formData.title) {
+    return uni.showToast({ title: '相册标题未填写' });
+  } else if (!imgList.value.length) {
+    return uni.showToast({ title: '请上传图片' });
+  }
   await SaveAlbum(formData);
   uni.navigateBack();
 };
@@ -74,8 +62,4 @@ const title = computed(() => {
 });
 </script>
 
-<style scoped>
-.cantainer {
-  padding: 30rpx;
-}
-</style>
+<style scoped></style>

@@ -1,5 +1,5 @@
 <template>
-  <PageHeader title="我的">
+  <PageHeader title="我的" :show-back="false" body-padding="">
     <view class="top">
       <view class="info">
         <u-avatar
@@ -83,7 +83,6 @@ const gridClick = (path?: string) => {
 }
 .grid {
   margin-top: 20rpx;
-
   .gridItem {
     padding: 20rpx;
     height: 120rpx;

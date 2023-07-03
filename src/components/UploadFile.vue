@@ -70,18 +70,29 @@ const afterRead = ({ file }: { file: any[] }) => {
 
 const emit = defineEmits(['update:fileList']);
 const uploadFilePromise = async (url: string, uuid: any) => {
-  const res = await UploadFileRequre(url);
-  Object.assign(
-    copyFileList.value[
-      copyFileList.value.findIndex((item) => uuid === item.uuid)
-    ],
-    {
-      url: res,
-      status: 'success',
-      message: ''
-    }
-  );
-  updatFileList();
+  try {
+    const res = await UploadFileRequre(url);
+    Object.assign(
+      copyFileList.value[
+        copyFileList.value.findIndex((item) => uuid === item.uuid)
+      ],
+      {
+        url: res,
+        status: 'success',
+        message: ''
+      }
+    );
+    updatFileList();
+  } catch (err) {
+    Object.assign(
+      copyFileList.value[
+        copyFileList.value.findIndex((item) => uuid === item.uuid)
+      ],
+      {
+        status: 'fail'
+      }
+    );
+  }
 };
 const updatFileList = () => {
   emit(

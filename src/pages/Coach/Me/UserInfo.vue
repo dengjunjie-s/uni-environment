@@ -32,11 +32,6 @@
           />
         </view>
       </u-form-item>
-      <!-- <u-form-item label="地区" prop="bust" borderBottom>
-      <view class="formItem">
-        <u-input v-model="formData.bust" border="none" inputAlign="right" />
-      </view>
-    </u-form-item> -->
       <u-form-item label="体重" prop="weight" borderBottom>
         <view class="formItem">
           <NumberInput
@@ -104,6 +99,7 @@ import { TuserInfo } from '@/types/user';
 import { EditUserInfo } from '@/apis/user';
 import useUserStore from '@/stores/userStore';
 import UploadFile from '@/components/UploadFile.vue';
+import PickerModal from '@/components/PickerModal.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import NumberInput from '@/components/NumberInput.vue';
 const userStore = useUserStore();
@@ -112,12 +108,14 @@ const formData = reactive<TuserInfo>({
 });
 
 const rules = {
-  name: {
-    type: 'string',
-    required: true,
-    message: '请填写姓名',
-    trigger: ['blur', 'change']
-  }
+  name: [
+    {
+      type: 'string',
+      required: true,
+      message: '请填写姓名',
+      trigger: ['blur', 'change']
+    }
+  ]
 };
 
 const refForm = ref();
@@ -145,7 +143,7 @@ const fileList = computed({
 <style scoped>
 .formItem {
   margin-right: 30rpx;
-  width: 100%;
+  width: calc(100% - 30rpx);
 }
 .avatar {
   display: flex;

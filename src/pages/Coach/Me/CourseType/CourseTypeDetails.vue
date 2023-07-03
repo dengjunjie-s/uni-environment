@@ -1,5 +1,5 @@
 <template>
-  <PageHeader title="课程种类详情">
+  <PageHeader :title="title">
     <view class="cantainer">
       <u-form
         :model="formData"
@@ -15,7 +15,7 @@
         </u-form-item>
       </u-form>
       <view class="but">
-        <u-button type="primary" :text="title" @click="toSub()" />
+        <u-button type="primary" text="提交" @click="toSub()" />
       </view>
     </view>
   </PageHeader>
@@ -38,12 +38,15 @@ onLoad(({ data }: any) => {
 });
 
 const toSub = async () => {
+  if (!formData.name) {
+    return uni.showToast({ title: '种类名称未填写' });
+  }
   await SaveCourseType(formData);
   uni.navigateBack();
 };
 
 const title = computed(() => {
-  return formData.id ? '修改相册' : '新增相册';
+  return formData.id ? '修改课程种类' : '新增课程种类';
 });
 </script>
 

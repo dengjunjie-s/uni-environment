@@ -1,31 +1,33 @@
 <template>
-  <view class="canteiner">
-    <view class="logo">
-      <u-image :src="ggbony" width="350rpx" height="350rpx" radius="175rpx" />
+  <page-header title="登录" :show-back="false">
+    <view class="canteiner">
+      <view class="logo">
+        <u-image :src="ggbony" width="350rpx" height="350rpx" radius="175rpx" />
+      </view>
+      <view class="formItem">
+        <u-input
+          placeholder="请输入手机号码"
+          v-model="form.mobile"
+          type="number"
+          clearable
+        />
+      </view>
+      <view class="formItem">
+        <u-input
+          placeholder="请输入密码"
+          v-model="form.passWord"
+          type="password"
+          clearable
+        />
+      </view>
+      <view class="formItem">
+        <u-button type="primary" @click="sub"> 登录 </u-button>
+      </view>
+      <view class="formItem">
+        <u-button type="success" @click="wxlogin"> 微信登录 </u-button>
+      </view>
     </view>
-    <view class="formItem">
-      <u-input
-        placeholder="请输入手机号码"
-        v-model="form.mobile"
-        type="number"
-        clearable
-      />
-    </view>
-    <view class="formItem">
-      <u-input
-        placeholder="请输入密码"
-        v-model="form.passWord"
-        type="password"
-        clearable
-      />
-    </view>
-    <view class="formItem">
-      <u-button type="primary" @click="sub"> 登录 </u-button>
-    </view>
-    <view class="formItem">
-      <u-button type="success" @click="wxlogin"> 微信登录 </u-button>
-    </view>
-  </view>
+  </page-header>
 </template>
 
 <script setup lang="ts">
@@ -37,7 +39,10 @@ const form = reactive<{
   mobile?: string;
   passWord?: string;
   wxCode?: string;
-}>({});
+}>({
+  mobile: '15814885346',
+  passWord: '123'
+});
 
 const sub = async () => {
   if (!form.passWord || !form.mobile) {
@@ -53,19 +58,19 @@ const wxlogin = async () => {
   const loginInfo: any = await uni.login({
     provider: 'weixin'
   });
-  await userStore.wxlogin({ wxCode: loginInfo.code });
+
+  form.wxCode = loginInfo.code;
+  await userStore.wxlogin(form);
   uni.redirectTo({
     url: '/pages/Coach/index'
   });
 };
-wxlogin();
+// wxlogin();
 </script>
 
 <style scoped lang="scss">
 .canteiner {
   padding: 20px;
-  // background: $my-bg;
-  height: calc(100vh - 40px);
   .formItem {
     margin-bottom: 20rpx;
   }

@@ -45,12 +45,13 @@ import PopupVertical from '@/components/PopupVertical.vue';
 const userStore = useUserStore();
 onMounted(() => {
   try {
-    const list = JSON.parse(userStore.userInfo.tags + '');
+    const { list }: any = JSON.parse(userStore.userInfo.tags + '');
     list.forEach((item: string) => {
       defaultList.value.includes(item) || defaultList.value.splice(0, 0, item);
     });
+    chocieList.value = list;
   } catch (err) {
-    err;
+    console.log(err);
   }
 });
 
@@ -68,7 +69,7 @@ const sub = async () => {
   try {
     await EditUserInfo({
       ...userStore.userInfo,
-      tags: JSON.stringify(chocieList.value)
+      tags: JSON.stringify({ list: chocieList.value })
     });
     await userStore.getUserInfo();
     uni.navigateBack();

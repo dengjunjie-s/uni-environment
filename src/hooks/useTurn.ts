@@ -4,8 +4,8 @@ export default function useTurn<TItemInfo>(
 ) {
   const params = reactive({
     //分页数据，用于请求
-    pageNumber: 1,
-    pageSize: 10
+    page: 0,
+    size: 10
   });
   const pageList = ref<TItemInfo[]>([]) as Ref<TItemInfo[]>;
   const totalPages = ref(0);
@@ -24,22 +24,21 @@ export default function useTurn<TItemInfo>(
   }
 
   const nextPage = () => {
-    if (params.pageNumber >= totalPages.value)
+    if (params.page >= totalPages.value)
       return uni.showToast({
         title: '已到最底部',
         icon: 'none'
       });
-    params.pageNumber++;
+    params.page++;
     loadData();
   };
 
   const refreshPage = () => {
     totalPages.value = 0;
-    params.pageNumber = 1;
+    params.page = 1;
     pageList.value = [];
     loadData();
   };
-  loadData();
   return {
     /**下一页方法 */
     nextPage,
