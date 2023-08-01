@@ -1,5 +1,5 @@
 <template>
-  <PageHeader title="课程种类">
+  <PageHeader title="我的学员" :showBack="false" bodyBg="#f0f0f0">
     <template #top>
       <view class="searchBox">
         <u-icon name="plus-circle" color="#fff" size="28" @tap="toDetails()" />
@@ -15,50 +15,26 @@
       </view>
       <view />
     </template>
-    <u-list v-if="dataList.length" height="calc(100vh - 150px)">
-      <u-list-item v-for="item in dataList" :key="item.id">
-        <view class="item">
-          <view class="item-title">
-            {{ item.studentName }}
-          </view>
-          <!-- <view class="item-image" v-if="item.remark">
-            {{ item.remark }}
-          </view> -->
-          <view class="item-but">
-            <view>
-              <u-button
-                type="primary"
-                @click="toDetails(item)"
-                text="查看详情"
-                size="mini"
-                :customStyle="{
-                  width: '130rpx'
-                }"
-              />
-            </view>
-            <view>
-              <u-button
-                type="error"
-                text="删除"
-                @click="toDel([item.id as number])"
-                size="mini"
-                :customStyle="{
-                  marginLeft: '20px',
-                  width: '130rpx'
-                }"
-              />
-            </view>
-          </view>
+
+    <scroll-view scroll-y style="height: calc(100vh - 410rpx)">
+      <view
+        class="item"
+        v-for="item in dataList"
+        :key="item.id"
+        @click="toDetails(item)"
+      >
+        <u-avatar src="" />
+        <view class="item-title">
+          {{ item.studentName }}
         </view>
-      </u-list-item>
-    </u-list>
-    <u-empty v-else />
+      </view>
+      <u-empty v-if="!dataList.length" />
+    </scroll-view>
   </PageHeader>
 </template>
 
 <script setup lang="ts">
-import { GetStudentList, DelStudent } from '@/apis/Student';
-
+import { GetStudentList } from '@/apis/Student';
 import { TStudent } from '@/types/Student';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
@@ -71,16 +47,17 @@ const getStudentList = async () => {
 };
 getStudentList();
 
+watch(
+  () => userStore.refreshState,
+  () => getStudentList()
+);
+
 const toDetails = (item?: any) => {
   uni.navigateTo({
     url:
-      '/pages/Coach/Me/CourseType/CourseTypeDetails' +
+      '/pages/Coach/Student/StudentDetails' +
       (item ? '?data=' + JSON.stringify(item) : '')
   });
-};
-const toDel = async (ids: any[]) => {
-  await DelStudent(ids);
-  getStudentList();
 };
 onShow(() => getStudentList());
 </script>
@@ -88,6 +65,7 @@ onShow(() => getStudentList());
 <style scoped lang="scss">
 .cantainer {
   background: #f0f0f0;
+  height: 100%;
 }
 .searchBox {
   display: flex;
@@ -104,21 +82,12 @@ onShow(() => getStudentList());
   padding: 20rpx;
   margin: 20rpx;
   margin-bottom: 0;
+  display: flex;
+  align-items: center;
   background: #fff;
   &-title {
     font-weight: 500;
-    margin-bottom: 20rpx;
-  }
-  &-image {
-    display: flex;
-    margin-top: 20rpx;
-    justify-content: space-between;
-  }
-  &-but {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 20rpx;
-    background: #fff;
+    margin-left: 30rpx;
   }
 }
 </style>

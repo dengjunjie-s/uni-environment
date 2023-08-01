@@ -8,7 +8,7 @@ export const LoginService = (data: any) =>
   requredService<{ access_token: string; userId: number }>({
     url: '/keep/user/login',
     data,
-    method: 'POST',
+    method: 'post',
     noToken: true
   });
 

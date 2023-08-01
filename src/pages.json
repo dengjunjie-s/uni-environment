@@ -9,7 +9,10 @@
     { "path": "pages/Coach/Me/Album/AlbumList" },
     { "path": "pages/Coach/Me/Album/AlbumDetails" },
     { "path": "pages/Coach/Me/CourseType/CourseTypeList" },
-    { "path": "pages/Coach/Me/CourseType/CourseTypeDetails" }
+    { "path": "pages/Coach/Me/CourseType/CourseTypeDetails" },
+    { "path": "pages/Coach/Student/StudentDetails" },
+    { "path": "pages/Coach/Scheduling/SchedulingDetails" },
+    { "path": "pages/Coach/Home/DateDetails" }
   ],
   "globalStyle": {
     "navigationStyle": "custom",

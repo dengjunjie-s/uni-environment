@@ -16,67 +16,45 @@
       <view />
     </template>
     <view class="cnateiner">
-      <u-list
+      <scroll-view
+        scroll-y
         @scrolltolower="nextPage"
-        v-if="pageList.length"
-        height="calc(100vh - 150px)"
+        style="height: calc(100vh - 260rpx)"
       >
-        <u-list-item v-for="item in pageList" :key="item.id">
-          <view class="item">
-            <view class="item-title">
-              {{ item.title }}
-            </view>
-            <view class="item-image">
-              <view
-                v-for="(img, index) in getImgList(item.albumList)"
-                :key="img"
-                class="image"
-              >
-                <u-image
-                  width="210rpx"
-                  height="210rpx"
-                  :src="img"
-                  :lazy-load="true"
-                  v-if="index < 3"
-                />
-              </view>
-            </view>
-            <view class="item-but">
-              <view>
-                <u-button
-                  type="primary"
-                  @click="toDetails(item)"
-                  text="查看详情"
-                  size="mini"
-                  :customStyle="{
-                    width: '130rpx'
-                  }"
-                />
-              </view>
-              <view>
-                <u-button
-                  type="error"
-                  text="删除"
-                  @click="toDel([item.id as number])"
-                  size="mini"
-                  :customStyle="{
-                    marginLeft: '20px',
-                    width: '130rpx'
-                  }"
-                />
-              </view>
+        <view
+          class="item"
+          v-for="item in pageList"
+          :key="item.id"
+          @click="toDetails(item)"
+        >
+          <view class="item-title">
+            {{ item.title }}
+          </view>
+          <view class="item-image">
+            <view
+              v-for="(img, index) in getImgList(item.albumList)"
+              :key="img"
+              class="image"
+            >
+              <u-image
+                width="210rpx"
+                height="210rpx"
+                :src="img"
+                :lazy-load="true"
+                v-if="index < 3"
+              />
             </view>
           </view>
-        </u-list-item>
-      </u-list>
-      <u-empty v-else />
+        </view>
+        <u-empty v-if="!pageList.length" />
+      </scroll-view>
     </view>
   </PageHeader>
 </template>
 
 <script setup lang="ts">
 import useTurn from '@/hooks/useTurn';
-import { GetAlbumPage, DelAlbums } from '@/apis/album';
+import { GetAlbumPage } from '@/apis/album';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
@@ -97,15 +75,10 @@ const getImgList = (str?: string) => {
 };
 
 const toDetails = (item?: any) => {
+  userStore.publicForm = JSON.stringify(item);
   uni.navigateTo({
-    url:
-      '/pages/Coach/Me/Album/AlbumDetails' +
-      (item ? '?data=' + JSON.stringify(item) : '')
+    url: '/pages/Coach/Me/Album/AlbumDetails'
   });
-};
-const toDel = async (ids: any[]) => {
-  await DelAlbums(ids);
-  refreshPage();
 };
 
 onShow(() => refreshPage());
@@ -128,8 +101,7 @@ onShow(() => refreshPage());
 }
 .item {
   padding: 20rpx;
-  margin: 20rpx;
-  margin-bottom: 0;
+  margin: 26rpx 26rpx;
   background: #fff;
   &-title {
     font-size: 30rpx;

@@ -32,6 +32,7 @@ export default function useTurn<TItemInfo>(
     params.page++;
     loadData();
   };
+  const isLast = computed(() => params.page >= totalPages.value);
 
   const refreshPage = () => {
     totalPages.value = 0;
@@ -47,6 +48,8 @@ export default function useTurn<TItemInfo>(
     /**刷新页数，从1开始 */
     refreshPage,
     /**数据列表 */
-    pageList
+    pageList,
+    /**是否最后一页 */
+    isLast
   };
 }

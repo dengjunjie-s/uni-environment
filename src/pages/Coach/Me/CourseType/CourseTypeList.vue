@@ -16,48 +16,26 @@
       <view />
     </template>
     <view class="cantainer">
-      <u-list
+      <scroll-view
+        scroll-y
         @scrolltolower="nextPage"
-        v-if="pageList.length"
-        height="calc(100vh - 150px)"
+        style="height: calc(100vh - 260rpx)"
       >
-        <u-list-item v-for="item in pageList" :key="item.id">
-          <view class="item">
-            <view class="item-title">
-              {{ item.name }}
-            </view>
-            <view class="item-image" v-if="item.remark">
-              {{ item.remark }}
-            </view>
-            <view class="item-but">
-              <view>
-                <u-button
-                  type="primary"
-                  @click="toDetails(item)"
-                  text="查看详情"
-                  size="mini"
-                  :customStyle="{
-                    width: '130rpx'
-                  }"
-                />
-              </view>
-              <view>
-                <u-button
-                  type="error"
-                  text="删除"
-                  @click="toDel([item.id as number])"
-                  size="mini"
-                  :customStyle="{
-                    marginLeft: '20px',
-                    width: '130rpx'
-                  }"
-                />
-              </view>
-            </view>
+        <view
+          v-for="item in pageList"
+          :key="item.id"
+          class="item"
+          @click="toDetails(item)"
+        >
+          <view class="item-title">
+            {{ item.name }}
           </view>
-        </u-list-item>
-      </u-list>
-      <u-empty v-else />
+          <view class="item-image" v-if="item.remark">
+            {{ item.remark }}
+          </view>
+        </view>
+        <u-empty v-if="!pageList.length" />
+      </scroll-view>
     </view>
   </PageHeader>
 </template>
@@ -65,11 +43,12 @@
 <script setup lang="ts">
 import useTurn from '@/hooks/useTurn';
 import { GetCourseTypePage, DelCourseTypes } from '@/apis/Course';
+import { TcourseType } from '@/types/Course';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
 const searchValue = ref('');
-const { pageList, nextPage, refreshPage } = useTurn(
+const { pageList, nextPage, refreshPage } = useTurn<TcourseType>(
   async (params: TPageParams) => {
     return await GetCourseTypePage({ ...params, staffId: userStore.userId });
   }
@@ -105,8 +84,7 @@ onShow(() => refreshPage());
 }
 .item {
   padding: 20rpx;
-  margin: 20rpx;
-  margin-bottom: 0;
+  margin: 26rpx 26rpx;
   background: #fff;
   &-title {
     font-weight: 500;

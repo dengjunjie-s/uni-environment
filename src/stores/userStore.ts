@@ -7,7 +7,8 @@ export default defineStore('userStore', {
   state: () => {
     const userInfo: TuserInfo = {};
     const userId = 0;
-    return { userInfo, userId };
+    const publicForm = '';
+    return { userInfo, userId, refreshState: 1, publicForm };
   },
   actions: {
     /**微信登录 phoneCode*/

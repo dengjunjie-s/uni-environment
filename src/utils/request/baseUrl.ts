@@ -2,7 +2,7 @@
 /**基础baseurl */
 export const getBaseUrl = () => {
   return process.env.NODE_ENV === 'production'
-    ? 'http://192.168.31.230:8080'
-    : 'http://192.168.31.230:8080';
-  // 'http://127.0.0.1:4523/m1/994704-0-default';
+    ? 'https://mock.apifox.cn/m1/994704-0-default'
+    : // : 'http://192.168.0.123:8080';
+      'https://mock.apifox.cn/m1/994704-0-default';
 };

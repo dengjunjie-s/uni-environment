@@ -1,5 +1,5 @@
 <template>
-  <PageHeader :title="title">
+  <PageHeader :title="formData.id ? '课程种类详情' : '新增课程种类'">
     <view class="cantainer">
       <u-form
         :model="formData"
@@ -17,13 +17,16 @@
       <view class="but">
         <u-button type="primary" text="提交" @click="toSub()" />
       </view>
+      <view class="but">
+        <u-button v-if="formData.id" type="error" text="删除" @click="del()" />
+      </view>
     </view>
   </PageHeader>
 </template>
 
 <script setup lang="ts">
 import { TcourseType } from '@/types/Course';
-import { SaveCourseType } from '@/apis/Course';
+import { SaveCourseType, DelCourseTypes } from '@/apis/Course';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
@@ -39,19 +42,34 @@ onLoad(({ data }: any) => {
 
 const toSub = async () => {
   if (!formData.name) {
-    return uni.showToast({ title: '种类名称未填写' });
+    return uni.showToast({ icon: 'none', title: '种类名称未填写' });
   }
   await SaveCourseType(formData);
   uni.navigateBack();
 };
 
-const title = computed(() => {
-  return formData.id ? '修改课程种类' : '新增课程种类';
-});
+const del = () => {
+  uni.showModal({
+    title: '提示',
+    content: '确定要删除该数据吗?',
+    success: async function (res) {
+      if (res.confirm) {
+        await DelCourseTypes([formData.id]);
+        userStore.refreshState++;
+        uni.navigateBack();
+      } else if (res.cancel) {
+        console.log('用户点击取消');
+      }
+    }
+  });
+};
 </script>
 
 <style scoped>
 .cantainer {
   padding: 30rpx;
+}
+.but {
+  margin-bottom: 20rpx;
 }
 </style>

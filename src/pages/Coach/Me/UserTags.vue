@@ -91,7 +91,7 @@ const addTag = () => {
     chocieList.value.push(addTagName.value);
     popupShow.value = false;
   } else {
-    uni.showToast({ title: '请输入标签' });
+    uni.showToast({ icon: 'none', title: '请输入标签' });
   }
 };
 

@@ -30,16 +30,27 @@ const requredService = async <TBackType>(option: TRequredOption) => {
   const header: any = option.header ? option.header : {};
   option.noToken || (header['Authorization'] = `Bearer ${GetToken()}`);
   try {
-    const res: any = await uni.request({
-      url: (option.baseUrl || getBaseUrl()) + option.url,
-      method: option.method,
-      header: header,
-      data: option.data
-    });
+    // const res: any = await uni.request({
+    //   url: (option.baseUrl || getBaseUrl()) + option.url,
+    //   method: option.method,
+    //   header: header,
+    //   data: option.data
+    // });
+
+    const res: any = (
+      await uniCloud.callFunction({
+        name: 'ontest',
+        data: {
+          url: (option.baseUrl || getBaseUrl()) + option.url,
+          method: option.method,
+          header: header,
+          data: option.data
+        }
+      })
+    ).result;
     loadingMsg && uni.hideLoading();
     if (res.statusCode === 200) {
       const { code, data, msg } = res.data as TBackData<TBackType>;
-
       loadingMsg && uni.hideLoading();
       if (code === 200) {
         successMsg && uni.showToast({ title: successMsg, icon: 'none' });
@@ -51,10 +62,12 @@ const requredService = async <TBackType>(option: TRequredOption) => {
       }
     }
     uni.showToast({ title: res.statusCode + ':请检查网络设置', icon: 'none' });
-    return Promise.reject(res.statusCode + ':请求失败');
+
+    return console.log(res);
+    // return Promise.reject(res.statusCode + ':请求失败');
   } catch (err: any) {
     loadingMsg && uni.hideLoading();
-    console.log(JSON.stringify(option.data), option.url);
+    console.log(JSON.stringify(option.data), option.url, err);
     uni.showToast({ title: '网络请求失败:' + err.errMsg, icon: 'none' });
     return Promise.reject('请求失败' + err.errMsg);
   }

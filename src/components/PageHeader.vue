@@ -1,31 +1,40 @@
 <template>
-  <view class="pageHeader">
-    <u-navbar
-      placeholder
-      safeAreaInsetTop
-      fixed
-      :border="false"
-      :title="title"
-      :bgColor="bg"
-      :autoBack="showBack"
-      :titleStyle="{
-        color: '#fff'
-      }"
-    >
-      <template #left>
-        <view v-if="showBack" @click="back">
-          <u-icon bold name="arrow-left" color="#fff" />
+  <view
+    class="pageHeader"
+    :style="
+      bodyBg
+        ? {
+            background: bodyBg
+          }
+        : {}
+    "
+  >
+    <view :style="{ background: bg }">
+      <view class="header">
+        <view class="header-back">
+          <u-icon
+            v-if="showBack"
+            @click="back"
+            bold
+            name="arrow-left"
+            color="#fff"
+          />
         </view>
-      </template>
-    </u-navbar>
-    <view :style="{ background: bg }" v-if="!!slots.top" class="pageHeader-top">
-      <slot name="top" />
+        <view>{{ title }}</view>
+      </view>
+      <view v-if="!!slots.top" class="pageHeader-top">
+        <slot name="top" />
+      </view>
     </view>
+
     <view
-      :style="{
-        background: bodyBg,
-        padding: bodyPadding
-      }"
+      :style="
+        bodyPadding
+          ? {
+              padding: bodyPadding
+            }
+          : {}
+      "
     >
       <slot />
     </view>
@@ -57,10 +66,23 @@ const back = () => {
 
 <style scoped lang="scss">
 .pageHeader {
-  height: 100%;
-  background: #000;
+  height: 100vh;
+  .header {
+    height: 90rpx;
+    padding-top: 80rpx;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &-back {
+      position: absolute;
+      left: 30rpx;
+      bottom: 25rpx;
+    }
+  }
   &-top {
-    height: 44px;
+    height: 90rpx;
     padding: 0 30rpx;
     color: #fff;
   }
