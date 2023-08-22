@@ -40,8 +40,8 @@ const form = reactive<{
   passWord?: string;
   wxCode?: string;
 }>({
-  mobile: '15814885346',
-  passWord: '123'
+  mobile: '',
+  passWord: ''
 });
 
 const sub = async () => {

@@ -12,6 +12,8 @@
 
 <script setup lang="ts">
 import { UploadFileRequre } from '@/apis/user';
+
+import { imgToBese64 } from '@/utils/file';
 import uniqueid from 'lodash.uniqueid';
 const props = withDefaults(
   defineProps<{
@@ -71,7 +73,7 @@ const afterRead = ({ file }: { file: any[] }) => {
 const emit = defineEmits(['update:fileList']);
 const uploadFilePromise = async (url: string, uuid: any) => {
   try {
-    const res = await UploadFileRequre(url);
+    const res = await imgToBese64(url);
     Object.assign(
       copyFileList.value[
         copyFileList.value.findIndex((item) => uuid === item.uuid)

@@ -130,7 +130,7 @@ const loadSchedulingList = async () => {
     endDate: new Date(weekStartValue.value + 7 * 86400000).toJSON()
   });
   schedulingList.value =
-    res.content?.map((item) => {
+    res?.content?.map((item) => {
       const date = item.date ? new Date(item.date) : undefined;
       return {
         ...item,

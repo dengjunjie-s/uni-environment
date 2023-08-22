@@ -7,7 +7,8 @@ exports.main = async (event, context) => {
       headers: event.header,
       data: event.data,
       contentType: 'json',
-      dataType: 'json'
+      dataType: 'json',
+      timeout: 600000
     });
     return {
       statusCode: 200,
@@ -16,7 +17,7 @@ exports.main = async (event, context) => {
   } catch (err) {
     return {
       statusCode: 500,
-      data: {},
+      data: JSON.stringify(err) || err,
       event
     };
   }
