@@ -1,5 +1,6 @@
 import requredService from '@/utils/request';
 import { TuserInfo, Tfeetback } from '@/types/user';
+import { TRoleBase } from '@/types/role';
 import { getBaseUrl } from '@/utils/request/baseUrl';
 import { GetToken } from '@/utils/localStorage';
 
@@ -9,6 +10,14 @@ export const LoginService = (data: any) =>
     url: '/keep/user/login',
     data,
     method: 'post',
+    noToken: true
+  });
+
+/**微信登录接口,返回token */
+export const GetUserRoleByToken = () =>
+  requredService<TRoleBase>({
+    url: '/keep/coach/user/role',
+    method: 'get',
     noToken: true
   });
 

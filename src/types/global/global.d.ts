@@ -1,6 +1,7 @@
 export {};
 
 declare global {
+  type uviewPlus = any;
   /**分页基础字段*/
   interface TPageBase<TContent> {
     content?: TContent[];

@@ -8,7 +8,12 @@
   />
   <view class="slot" @click="pickerShow = true">
     <slot>
-      <u-input v-model="inputValue" type="number" inputAlign="right" />
+      <u-input
+        v-model="inputValue"
+        :border="border"
+        type="number"
+        inputAlign="right"
+      />
     </slot>
     <view class="mask" />
   </view>
@@ -18,6 +23,7 @@
 const props = withDefaults(
   defineProps<{
     value?: any;
+    border?: string;
     columns: { name?: string; value?: any }[];
   }>(),
   {}

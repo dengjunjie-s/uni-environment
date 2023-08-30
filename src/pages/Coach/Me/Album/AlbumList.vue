@@ -8,6 +8,7 @@
             placeholder="请输入搜索关键字"
             v-model="searchValue"
             border="bottom"
+            color="#fff"
             clearable
           />
         </view>
@@ -75,7 +76,7 @@ const getImgList = (str?: string) => {
 };
 
 const toDetails = (item?: any) => {
-  userStore.publicForm = JSON.stringify(item);
+  userStore.formJson = JSON.stringify(item);
   uni.navigateTo({
     url: '/pages/Coach/Me/Album/AlbumDetails'
   });

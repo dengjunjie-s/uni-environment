@@ -23,11 +23,12 @@
       </u-form-item>
       <u-form-item label="性别" prop="gender" borderBottom>
         <view class="formItem">
-          <PickerModal
+          <ChoiceModal
             :columns="[
               { name: '男', value: 1 },
               { name: '女', value: 2 }
             ]"
+            border="none"
             v-model:value="formData.gender"
           />
         </view>
@@ -87,6 +88,11 @@
           </NumberInput>
         </view>
       </u-form-item>
+      <u-form-item label="头像" prop="avatar" borderBottom class="formItem">
+        <view class="avatar formItem">
+          <UploadFile v-model:fileList="fileList" />
+        </view>
+      </u-form-item>
     </u-form>
     <view class="but">
       <u-button type="primary" text="保存" @click="sub" />
@@ -99,7 +105,7 @@ import { TuserInfo } from '@/types/user';
 import { EditUserInfo } from '@/apis/user';
 import useUserStore from '@/stores/userStore';
 import UploadFile from '@/components/UploadFile.vue';
-import PickerModal from '@/components/PickerModal.vue';
+import ChoiceModal from '@/components/Choice/ChoiceModal.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import NumberInput from '@/components/NumberInput.vue';
 const userStore = useUserStore();

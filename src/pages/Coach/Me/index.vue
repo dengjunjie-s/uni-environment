@@ -13,18 +13,15 @@
       </view>
     </view>
     <view class="grid">
-      <u-grid :border="true">
-        <u-grid-item
+      <scroll-view scroll-y style="height: calc(100vh - 590rpx)">
+        <u-cell
           v-for="(item, index) in moduleList"
           :key="index"
+          :icon="item.icon"
+          :title="item.title"
           @click="gridClick(item.path)"
-        >
-          <view class="gridItem">
-            <u-icon :name="item.icon" :size="30"></u-icon>
-            <text class="grid-text">{{ item.title }}</text>
-          </view>
-        </u-grid-item>
-      </u-grid>
+        />
+      </scroll-view>
     </view>
   </PageHeader>
 </template>
@@ -35,19 +32,21 @@ import PageHeader from '@/components/PageHeader.vue';
 const userStore = useUserStore();
 
 const moduleList = [
-  { icon: 'file-text', title: '数据统计' },
+  // { icon: 'file-text', title: '数据统计' },
+  { icon: 'account', title: '个人信息', path: '/pages/Coach/Me/UserInfo' },
+  { icon: 'tags', title: '个人标签', path: '/pages/Coach/Me/UserTags' },
   {
     icon: 'order',
     title: '课程种类',
     path: '/pages/Coach/Me/CourseType/CourseTypeList'
   },
-  { icon: 'chat', title: '短信通知' },
-  { icon: 'account', title: '个人信息', path: '/pages/Coach/Me/UserInfo' },
-  { icon: 'photo', title: '照片上传', path: '/pages/Coach/Me/Album/AlbumList' },
-  { icon: 'tags', title: '个人标签', path: '/pages/Coach/Me/UserTags' },
-  { icon: 'account', title: '账号设置' },
-  { icon: 'setting', title: '系统设置', path: '/pages/Coach/Me/Setting/index' },
-  { icon: 'man-add', title: '邀请好友' }
+  { icon: 'man-add', title: '邀请好友' },
+  { icon: 'account', title: '账号设置', path: '/pages/Coach/Me/Setting/index' },
+  {
+    icon: 'account',
+    title: '管理员设置',
+    path: '/pages/Coach/Me/Administrators/index'
+  }
 ];
 
 const gridClick = (path?: string) => {
@@ -60,6 +59,7 @@ const gridClick = (path?: string) => {
 <style scoped lang="scss">
 .top {
   background: $my-bg;
+  height: 270rpx;
   border-radius: 0 0 0 70rpx;
   .info {
     padding-left: 70rpx;
@@ -82,7 +82,6 @@ const gridClick = (path?: string) => {
   }
 }
 .grid {
-  margin-top: 20rpx;
   .gridItem {
     padding: 20rpx;
     height: 120rpx;

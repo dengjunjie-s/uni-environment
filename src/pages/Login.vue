@@ -40,14 +40,14 @@ const form = reactive<{
   passWord?: string;
   wxCode?: string;
 }>({
-  mobile: '',
-  passWord: ''
+  mobile: '15814885346',
+  passWord: '123'
 });
 
 const sub = async () => {
   if (!form.passWord || !form.mobile) {
     return uni.showToast({
-      title: !form.passWord ? '请填写密码' : '请填写账号',
+      title: !form.mobile ? '请填写账号' : '请填写密码',
       icon: 'none'
     });
   }

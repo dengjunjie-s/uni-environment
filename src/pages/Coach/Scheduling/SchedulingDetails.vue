@@ -8,7 +8,7 @@
         <DateChoice v-model:value="formData.date" />
       </u-form-item>
       <u-form-item label="课程种类:">
-        <PickerModal
+        <ChoiceModal
           :columns="pickerColumns"
           v-model:value="formData.courseId"
         />
@@ -29,10 +29,10 @@
 <script setup lang="ts">
 import { SaveScheduling, DelScheduling } from '@/apis/Scheduling';
 import { TScheduling } from '@/types/Scheduling';
-import DateChoice from '@/components/DateChoice.vue';
+import DateChoice from '@/components/Choice/DateChoice.vue';
 import useUserStore from '@/stores/userStore';
-import StudentChoicevue from '@/components/StudentChoice.vue';
-import PickerModal from '@/components/PickerModal.vue';
+import StudentChoicevue from '@/components/Choice/StudentChoice.vue';
+import ChoiceModal from '@/components/Choice/ChoiceModal.vue';
 import { GetCourseTypePage } from '@/apis/Course';
 const userStore = useUserStore();
 

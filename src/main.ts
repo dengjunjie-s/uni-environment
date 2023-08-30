@@ -10,11 +10,14 @@ export function createApp() {
   app.use(pinia);
   app.use(uviewPlus);
   app.component('PageHeader', PageHeader);
-  app.directive('dev', {
-    mounted(el) {
-      el.onclick = () => {
-        uni.showToast({ title: '正在开发...', icon: 'none' });
-      };
+
+  app.directive('role', {
+    mounted(el, { value }) {
+      // const hookIdList = accountStore.hookIdList;
+      // for (const iterator of value) {
+      //   if (hookIdList.includes(iterator)) return;
+      // }
+      // el.remove();
     }
   });
   return {

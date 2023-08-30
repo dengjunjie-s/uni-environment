@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { LoginService, GetUserInfo } from '@/apis/user';
+import { LoginService, GetUserInfo, GetUserRoleByToken } from '@/apis/user';
 import { TuserInfo } from '@/types/user';
 import { SetToken } from '@/utils/localStorage';
 
@@ -7,8 +7,10 @@ export default defineStore('userStore', {
   state: () => {
     const userInfo: TuserInfo = {};
     const userId = 0;
-    const publicForm = '';
-    return { userInfo, userId, refreshState: 1, publicForm };
+    const formJson = '';
+    const roleList: string[] = [];
+    const roleCode = '';
+    return { userInfo, userId, refreshState: 1, formJson, roleList, roleCode };
   },
   actions: {
     /**微信登录 phoneCode*/
@@ -19,11 +21,25 @@ export default defineStore('userStore', {
         SetToken(access_token);
         this.userId = userId;
         await this.getUserInfo();
+        this.getUserRole();
         uni.hideLoading();
         return Promise.resolve();
       } catch (err) {
         uni.hideLoading();
         return Promise.reject(err);
+      }
+    },
+    async getUserRole() {
+      try {
+        const res = await GetUserRoleByToken();
+        this.roleCode = res.roleCode + '';
+        try {
+          const list = JSON.parse(res.roleJson + '');
+          Array.isArray(list) && (this.roleList = list);
+        } catch (err) {}
+      } catch (err) {
+        //
+        console.log(err);
       }
     },
     async getUserInfo() {

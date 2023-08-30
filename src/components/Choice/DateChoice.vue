@@ -1,12 +1,12 @@
 <template>
   <u-calendar showLunar :show="calendarShow" @confirm="calendarConfirm" />
-  <PickerModal
-    ref="refPickerModal"
+  <ChoiceModal
+    ref="refChoiceModal"
     :columns="pickerColumns"
     @confirm="pickerConfirm"
   >
     <span />
-  </PickerModal>
+  </ChoiceModal>
   <view class="slot" @click="calendarShow = true">
     <slot>
       <u-input v-model="inputValue" type="number" inputAlign="right" />
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import PickerModal from '@/components/PickerModal.vue';
+import ChoiceModal from '@/components/Choice/ChoiceModal.vue';
 import Dayjs from 'dayjs';
 const props = withDefaults(
   defineProps<{
@@ -33,11 +33,11 @@ const inputValue = computed(() => {
 
 const calendarShow = ref(false);
 const calendarValue = ref(0);
-const refPickerModal = ref();
+const refChoiceModal = ref();
 const calendarConfirm = (data: any) => {
   calendarValue.value = new Date(data[0]).setHours(0, 0, 0, 0).valueOf() || 0;
   calendarShow.value = false;
-  refPickerModal.value.pickerShow = true;
+  refChoiceModal.value.pickerShow = true;
 };
 
 const emit = defineEmits(['update:value']);

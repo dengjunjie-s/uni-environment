@@ -28,14 +28,14 @@ import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
 const formData = reactive<Talbum>({});
-onLoad(({ data }: any) => {
+onLoad(() => {
   try {
-    const form: Talbum = JSON.parse(userStore.publicForm);
+    const form: Talbum = JSON.parse(userStore.formJson);
     Object.assign(formData, form);
   } catch (err) {
     formData.staffId = userStore.userId;
   }
-  userStore.publicForm = '';
+  userStore.formJson = '';
   formData.staffId = userStore.userId;
 });
 

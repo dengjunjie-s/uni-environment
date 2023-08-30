@@ -9,6 +9,7 @@
             v-model="searchValue"
             border="bottom"
             clearable
+            color="#fff"
           />
         </view>
         <u-icon name="search" color="#fff" size="28" @tap="getStudentList" />

@@ -11,8 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { UploadFileRequre } from '@/apis/user';
-
 import { imgToBese64 } from '@/utils/file';
 import uniqueid from 'lodash.uniqueid';
 const props = withDefaults(

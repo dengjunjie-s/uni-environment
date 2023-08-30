@@ -11,23 +11,23 @@
       <u-tag text="添加学员" @click="addClick" icon="plus" :plain="true" />
     </view>
   </view>
-  <PickerModal
-    ref="refPickerModal"
+  <ChoiceModal
+    ref="refChoiceModal"
     :columns="pickerColumns"
     @confirm="addDataList"
   >
     <span />
-  </PickerModal>
+  </ChoiceModal>
 </template>
 
 <script setup lang="ts">
 import { GetStudentList } from '@/apis/Student';
 import { TStudent } from '@/types/Student';
-import PickerModal from '@/components/PickerModal.vue';
+import ChoiceModal from '@/components/Choice/ChoiceModal.vue';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
-const refPickerModal = ref();
+const refChoiceModal = ref();
 
 const props = withDefaults(
   defineProps<{
@@ -69,7 +69,7 @@ const choiceDataList = computed(() => {
 const dataList = ref<TStudent[]>([]);
 const getStudentList = async () => {
   const res = await GetStudentList({ staffId: userStore.userId });
-  dataList.value = res;
+  dataList.value = res || [];
 };
 getStudentList();
 const pickerColumns = computed(() => {
@@ -85,7 +85,7 @@ const pickerColumns = computed(() => {
 const addClick = () => {
   if (!dataList.value.length)
     return uni.showToast({ title: '请先在首页学员列表添加人员', icon: 'none' });
-  refPickerModal.value.pickerShow = true;
+  refChoiceModal.value.pickerShow = true;
 };
 </script>
 
