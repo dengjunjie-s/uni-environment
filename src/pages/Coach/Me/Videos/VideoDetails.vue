@@ -1,14 +1,17 @@
 <template>
   <PageHeader
-    :title="formData.id ? '相册详情' : '新增相册'"
+    :title="formData.id ? '谈单夹详情' : '新增谈单夹'"
     bodyPadding="30rpx"
   >
     <u-form ref="refForm" labelPosition="top" labelWidth="100%">
-      <u-form-item label="相册标题:">
+      <u-form-item label="谈单夹标题:">
         <u-input v-model="formData.title" />
       </u-form-item>
       <u-form-item label="照片:">
         <UploadFile v-model:fileList="imgList" :mex="12" />
+      </u-form-item>
+      <u-form-item label="视频:">
+        <UploadVideo v-model:fileUrl="videoUrl" />
       </u-form-item>
     </u-form>
     <view class="but">
@@ -21,18 +24,24 @@
 </template>
 
 <script setup lang="ts">
-import { Talbum } from '@/types/album';
-import UploadFile from '@/components/UploadFile.vue';
+import { Tvideos } from '@/types/Videos';
+import UploadVideo from '@/components/UploadVideo.vue';
 import { getform, setform } from '@/utils/uniStorage';
-import { SaveAlbum, DelAlbums } from '@/apis/album';
+import UploadFile from '@/components/UploadFile.vue';
+import { SaveVideos, DelVideoss } from '@/apis/Videos';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
-const formData = reactive<Talbum>({});
+const formData = reactive<Tvideos>({});
+const videoUrl = ref('');
+const imgList = ref<string[]>([]);
 onLoad(() => {
   try {
-    const form: Talbum = JSON.parse(getform(1));
+    const form: Tvideos = JSON.parse(getform(1));
     Object.assign(formData, form);
+    const videoPathObj = JSON.parse(form.videoPath + '');
+    imgList.value = videoPathObj.imgList || [];
+    videoUrl.value = videoPathObj.videoUrl || '';
   } catch (err) {
     formData.staffId = userStore.userId;
   }
@@ -41,27 +50,18 @@ onLoad(() => {
 });
 
 const refForm = ref();
-const imgList = computed<string[]>({
-  get() {
-    try {
-      const list: string[] = JSON.parse(formData?.albumList + '');
-      return list;
-    } catch (err) {
-      return [];
-    }
-  },
-  set(value) {
-    formData.albumList = JSON.stringify(value);
-  }
-});
 
 const toSub = async () => {
   if (!formData.title) {
-    return uni.showToast({ icon: 'none', title: '相册标题未填写' });
-  } else if (!imgList.value.length) {
-    return uni.showToast({ icon: 'none', title: '请上传图片' });
+    return uni.showToast({ icon: 'none', title: '标题未填写' });
   }
-  await SaveAlbum(formData);
+  await SaveVideos({
+    ...formData,
+    videoPath: JSON.stringify({
+      imgList: imgList.value || [],
+      videoUrl: videoUrl.value
+    })
+  });
   uni.navigateBack();
 };
 
@@ -71,7 +71,7 @@ const del = () => {
     content: '确定要删除该数据吗?',
     success: async function (res) {
       if (res.confirm) {
-        await DelAlbums([formData.id]);
+        await DelVideoss([formData.id]);
         userStore.refreshState++;
         uni.navigateBack();
       } else if (res.cancel) {

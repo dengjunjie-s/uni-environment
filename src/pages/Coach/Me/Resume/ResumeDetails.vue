@@ -1,11 +1,14 @@
 <template>
   <PageHeader
-    :title="formData.id ? '相册详情' : '新增相册'"
+    :title="formData.id ? '履历详情' : '新增履历'"
     bodyPadding="30rpx"
   >
     <u-form ref="refForm" labelPosition="top" labelWidth="100%">
-      <u-form-item label="相册标题:">
+      <u-form-item label="履历标题:">
         <u-input v-model="formData.title" />
+      </u-form-item>
+      <u-form-item label="备注:">
+        <u-input v-model="formData.remark" />
       </u-form-item>
       <u-form-item label="照片:">
         <UploadFile v-model:fileList="imgList" :mex="12" />
@@ -21,17 +24,17 @@
 </template>
 
 <script setup lang="ts">
-import { Talbum } from '@/types/album';
+import { TResume } from '@/types/Resume';
 import UploadFile from '@/components/UploadFile.vue';
 import { getform, setform } from '@/utils/uniStorage';
-import { SaveAlbum, DelAlbums } from '@/apis/album';
+import { SaveResume, DelResumes } from '@/apis/Resume';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
-const formData = reactive<Talbum>({});
+const formData = reactive<TResume>({});
 onLoad(() => {
   try {
-    const form: Talbum = JSON.parse(getform(1));
+    const form: TResume = JSON.parse(getform(1));
     Object.assign(formData, form);
   } catch (err) {
     formData.staffId = userStore.userId;
@@ -44,24 +47,24 @@ const refForm = ref();
 const imgList = computed<string[]>({
   get() {
     try {
-      const list: string[] = JSON.parse(formData?.albumList + '');
+      const list: string[] = JSON.parse(formData?.imgStr + '');
       return list;
     } catch (err) {
       return [];
     }
   },
   set(value) {
-    formData.albumList = JSON.stringify(value);
+    formData.imgStr = JSON.stringify(value);
   }
 });
 
 const toSub = async () => {
   if (!formData.title) {
-    return uni.showToast({ icon: 'none', title: '相册标题未填写' });
+    return uni.showToast({ icon: 'none', title: '履历标题未填写' });
   } else if (!imgList.value.length) {
     return uni.showToast({ icon: 'none', title: '请上传图片' });
   }
-  await SaveAlbum(formData);
+  await SaveResume(formData);
   uni.navigateBack();
 };
 
@@ -71,7 +74,7 @@ const del = () => {
     content: '确定要删除该数据吗?',
     success: async function (res) {
       if (res.confirm) {
-        await DelAlbums([formData.id]);
+        await DelResumes([formData.id]);
         userStore.refreshState++;
         uni.navigateBack();
       } else if (res.cancel) {

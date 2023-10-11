@@ -1,10 +1,10 @@
 <template>
-  <PageHeader title="角色列表">
+  <PageHeader title="角色详情">
     <view class="cnateiner">
       <scroll-view scroll-y style="height: calc(100vh - 310rpx)">
         <u-form ref="refForm" labelPosition="top" labelWidth="100%">
           <u-form-item label="角色名称:">
-            <u-input v-model="formData.name" />
+            <u-input v-model="formData.roleName" />
           </u-form-item>
           <u-form-item label="角色拥有权限:">
             <view v-if="formData.roleCode === 'SuperAdministrator'">
@@ -27,11 +27,12 @@
 </template>
 
 <script setup lang="ts">
-import { SaveRole } from '@/apis/role';
-import { TRoleBase } from '@/types/role';
+import { SaveRole } from '@/apis/administrators';
+import { TRoleBase } from '@/types/administrators';
 import useUserStore from '@/stores/userStore';
 import Tree from '@/components/Tree/index.vue';
-import { roleTree } from '../role';
+import { roleTree } from '@/utils/role';
+import { getform } from '@/utils/uniStorage';
 const userStore = useUserStore();
 const formData = reactive<TRoleBase>({});
 const treeValues = computed({
@@ -48,7 +49,7 @@ const treeValues = computed({
   }
 });
 const toSub = async () => {
-  if (!formData.name) {
+  if (!formData.roleName) {
     return uni.showToast({ icon: 'none', title: '相册标题未填写' });
   }
   await SaveRole({ ...formData });
@@ -57,7 +58,7 @@ const toSub = async () => {
 
 onLoad(() => {
   try {
-    const form: TRoleBase = JSON.parse(userStore.formJson);
+    const form: TRoleBase = JSON.parse(getform(1));
     Object.assign(formData, form);
   } catch (err) {}
 });

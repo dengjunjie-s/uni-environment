@@ -72,4 +72,5 @@ export interface Tfeetback {
   staffId?: number;
   text?: string;
   phoneOrMail?: string;
+  imgStr?: string;
 }

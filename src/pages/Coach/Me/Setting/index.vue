@@ -25,15 +25,23 @@
 
 <script setup lang="ts">
 import useUserStore from '@/stores/userStore';
-import { GetUserInfo } from '@/apis/user';
+import { EditAccountRoleOrWxcode } from '@/apis/user';
 const userStore = useUserStore();
 
 const modalTitle = ref('');
-const confirm = () => {
+const confirm = async () => {
   if (modalTitle.value === '是否退出登录') {
     userStore.loadOut();
   } else if (modalTitle.value === '是否本账号绑定微信') {
     //
+    const loginInfo: any = await uni.login({
+      provider: 'weixin'
+    });
+    const wxCode = loginInfo.code;
+    await EditAccountRoleOrWxcode({
+      wxCode,
+      userId: userStore.userId
+    });
   }
   modalTitle.value = '';
 };

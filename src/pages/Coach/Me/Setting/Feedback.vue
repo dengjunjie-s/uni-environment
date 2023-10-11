@@ -18,6 +18,9 @@
         <u-form-item label="联系方式" prop="phoneOrMail" borderBottom>
           <u-input v-model="formData.phoneOrMail" placeholder="请输入内容" />
         </u-form-item>
+        <u-form-item label="图片" prop="imgStr" borderBottom>
+          <UploadFile v-model:fileList="imgList" />
+        </u-form-item>
       </u-form>
     </view>
     <view class="but">
@@ -30,6 +33,7 @@
 import { AddFeetback } from '@/apis/user';
 import { Tfeetback } from '@/types/user';
 import useUserStore from '@/stores/userStore';
+import UploadFile from '@/components/UploadFile.vue';
 const userStore = useUserStore();
 
 const formData = reactive<Tfeetback>({
@@ -48,10 +52,23 @@ const refForm = ref();
 const sub = async () => {
   if (!((await refForm.value.validate()) === true)) return;
   try {
-    await AddFeetback(formData);
+    await AddFeetback({ ...formData, imgStr: JSON.stringify(formData.imgStr) });
     uni.navigateBack();
   } catch (err) {}
 };
+const imgList = computed<string[]>({
+  get() {
+    try {
+      const list: string[] = JSON.parse(formData?.imgStr + '');
+      return list;
+    } catch (err) {
+      return [];
+    }
+  },
+  set(value) {
+    formData.imgStr = JSON.stringify(value);
+  }
+});
 </script>
 
 <style scoped>

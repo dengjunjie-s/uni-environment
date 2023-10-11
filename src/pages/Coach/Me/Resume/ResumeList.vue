@@ -1,5 +1,5 @@
 <template>
-  <PageHeader title="相册列表">
+  <PageHeader title="履历列表">
     <template #top>
       <view class="searchBox">
         <u-icon name="plus-circle" color="#fff" size="28" @tap="toDetails()" />
@@ -33,7 +33,7 @@
           </view>
           <view class="item-image">
             <view
-              v-for="(img, index) in getImgList(item.albumList)"
+              v-for="(img, index) in getImgList(item.imgStr)"
               :key="img"
               class="image"
             >
@@ -56,14 +56,14 @@
 <script setup lang="ts">
 import useTurn from '@/hooks/useTurn';
 import { setform } from '@/utils/uniStorage';
-import { GetAlbumPage } from '@/apis/album';
+import { GetResumePage } from '@/apis/Resume';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
 const searchValue = ref('');
 const { pageList, nextPage, refreshPage } = useTurn(
   async (params: TPageParams) => {
-    return await GetAlbumPage({ ...params, staffId: userStore.userId });
+    return await GetResumePage({ ...params, staffId: userStore.userId });
   }
 );
 
@@ -79,7 +79,7 @@ const getImgList = (str?: string) => {
 const toDetails = (item?: any) => {
   setform(1, JSON.stringify(item));
   uni.navigateTo({
-    url: '/pages/Coach/Me/Album/AlbumDetails'
+    url: '/pages/Coach/Me/Resume/ResumeDetails'
   });
 };
 

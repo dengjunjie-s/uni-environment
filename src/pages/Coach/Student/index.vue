@@ -24,7 +24,7 @@
         :key="item.id"
         @click="toDetails(item)"
       >
-        <u-avatar src="" />
+        <u-avatar :src="item.avatar" />
         <view class="item-title">
           {{ item.studentName }}
         </view>
@@ -36,6 +36,7 @@
 
 <script setup lang="ts">
 import { GetStudentList } from '@/apis/Student';
+import { setform } from '@/utils/uniStorage';
 import { TStudent } from '@/types/Student';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
@@ -54,10 +55,9 @@ watch(
 );
 
 const toDetails = (item?: any) => {
+  setform(1, JSON.stringify(item));
   uni.navigateTo({
-    url:
-      '/pages/Coach/Student/StudentDetails' +
-      (item ? '?data=' + JSON.stringify(item) : '')
+    url: '/pages/Coach/Student/StudentDetails'
   });
 };
 onShow(() => getStudentList());

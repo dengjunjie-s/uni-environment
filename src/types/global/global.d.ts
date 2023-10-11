@@ -2,6 +2,7 @@ export {};
 
 declare global {
   type uviewPlus = any;
+  const wx: any;
   /**分页基础字段*/
   interface TPageBase<TContent> {
     content?: TContent[];

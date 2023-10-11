@@ -7,13 +7,12 @@ export default defineStore('userStore', {
   state: () => {
     const userInfo: TuserInfo = {};
     const userId = 0;
-    const formJson = '';
     const roleList: string[] = [];
     const roleCode = '';
-    return { userInfo, userId, refreshState: 1, formJson, roleList, roleCode };
+    return { userInfo, userId, refreshState: 1, roleList, roleCode };
   },
   actions: {
-    /**微信登录 phoneCode*/
+    /**微信登录*/
     async wxlogin(form: any) {
       uni.showLoading({ title: '登录中' });
       try {
@@ -29,6 +28,7 @@ export default defineStore('userStore', {
         return Promise.reject(err);
       }
     },
+    /**获取用户权限*/
     async getUserRole() {
       try {
         const res = await GetUserRoleByToken();
@@ -41,6 +41,10 @@ export default defineStore('userStore', {
         //
         console.log(err);
       }
+    },
+    checkRole(codes: string[]) {
+      if (this.roleCode === 'superAdmin') return true;
+      return codes.some((item) => this.roleList.includes(item));
     },
     async getUserInfo() {
       try {

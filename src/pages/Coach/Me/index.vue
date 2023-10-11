@@ -27,27 +27,55 @@
 </template>
 
 <script setup lang="ts">
-import useUserStore from '@/stores/userStore';
 import PageHeader from '@/components/PageHeader.vue';
+import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 
 const moduleList = [
-  // { icon: 'file-text', title: '数据统计' },
-  { icon: 'account', title: '个人信息', path: '/pages/Coach/Me/UserInfo' },
-  { icon: 'tags', title: '个人标签', path: '/pages/Coach/Me/UserTags' },
+  {
+    icon: 'account',
+    title: '个人信息',
+    path: '/pages/Coach/Me/UserInfo',
+    check: true
+  },
+  {
+    icon: 'tags',
+    title: '个人标签',
+    path: '/pages/Coach/Me/UserTags',
+    check: true
+  },
+  {
+    icon: 'tags',
+    title: '个人履历',
+    path: '/pages/Coach/Me/Resume/ResumeList',
+    check: true
+  },
   {
     icon: 'order',
     title: '课程种类',
-    path: '/pages/Coach/Me/CourseType/CourseTypeList'
+    path: '/pages/Coach/Me/CourseType/CourseTypeList',
+    check: true
   },
-  { icon: 'man-add', title: '邀请好友' },
-  { icon: 'account', title: '账号设置', path: '/pages/Coach/Me/Setting/index' },
+  {
+    icon: 'file-text',
+    title: '谈单夹',
+    path: '/pages/Coach/Me/Videos/Videos',
+    check: true
+  },
+  { icon: 'man-add', title: '邀请好友', check: true },
+  {
+    icon: 'account',
+    title: '账号设置',
+    path: '/pages/Coach/Me/Setting/index',
+    check: true
+  },
   {
     icon: 'account',
     title: '管理员设置',
-    path: '/pages/Coach/Me/Administrators/index'
+    path: '/pages/Coach/Me/Administrators/index',
+    check: userStore.checkRole(['roleConfig', 'accountConfig'])
   }
-];
+].filter(({ check }) => check);
 
 const gridClick = (path?: string) => {
   path

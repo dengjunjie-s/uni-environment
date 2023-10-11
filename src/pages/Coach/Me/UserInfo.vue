@@ -88,11 +88,6 @@
           </NumberInput>
         </view>
       </u-form-item>
-      <u-form-item label="头像" prop="avatar" borderBottom class="formItem">
-        <view class="avatar formItem">
-          <UploadFile v-model:fileList="fileList" />
-        </view>
-      </u-form-item>
     </u-form>
     <view class="but">
       <u-button type="primary" text="保存" @click="sub" />

@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import useUserStore from '@/stores/userStore';
+const userStore = useUserStore();
 const gridClick = (path?: string) => {
   path
     ? uni.navigateTo({ url: path })
@@ -23,12 +25,14 @@ const moduleList = [
   {
     icon: 'account',
     title: '角色管理',
-    path: '/pages/Coach/Me/Administrators/Role/index'
+    path: '/pages/Coach/Me/Administrators/Role/index',
+    check: userStore.checkRole(['roleConfig'])
   },
   {
     icon: 'account',
     title: '账号角色绑定',
-    path: '/pages/Coach/Me/Administrators/Account/index'
+    path: '/pages/Coach/Me/Administrators/Account/index',
+    check: userStore.checkRole(['accountConfig'])
   }
 ];
 </script>

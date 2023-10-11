@@ -10,7 +10,7 @@ export interface TRoleBase {
   /**
    * 角色名
    */
-  name?: string;
+  roleName?: string;
   /**
    * 长字符串  存json
    */

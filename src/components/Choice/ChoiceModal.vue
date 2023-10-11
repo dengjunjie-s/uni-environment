@@ -10,9 +10,9 @@
     <slot>
       <u-input
         v-model="inputValue"
-        :border="border"
         type="number"
-        inputAlign="right"
+        :border="border"
+        :inputAlign="inputAlign"
       />
     </slot>
     <view class="mask" />
@@ -24,6 +24,7 @@ const props = withDefaults(
   defineProps<{
     value?: any;
     border?: string;
+    inputAlign?: string;
     columns: { name?: string; value?: any }[];
   }>(),
   {}

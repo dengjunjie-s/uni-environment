@@ -1,6 +1,6 @@
 import requredService from '@/utils/request';
 import { TuserInfo, Tfeetback } from '@/types/user';
-import { TRoleBase } from '@/types/role';
+import { TRoleBase } from '@/types/administrators';
 import { getBaseUrl } from '@/utils/request/baseUrl';
 import { GetToken } from '@/utils/localStorage';
 
@@ -16,9 +16,8 @@ export const LoginService = (data: any) =>
 /**微信登录接口,返回token */
 export const GetUserRoleByToken = () =>
   requredService<TRoleBase>({
-    url: '/keep/coach/user/role',
-    method: 'get',
-    noToken: true
+    url: '/keep/staff/token',
+    method: 'post'
   });
 
 /**上传文件 */
@@ -26,6 +25,25 @@ export const UploadFileRequre = (url: any) =>
   new Promise((resolve, reject) => {
     uni.uploadFile({
       url: getBaseUrl() + '/keep/coach/file',
+      filePath: url,
+      name: 'file',
+      header: {
+        Authorization: `Bearer ${GetToken()}`
+      },
+      success(res) {
+        const data = JSON.parse(res.data + '');
+        resolve(data.data);
+      },
+      fail(err) {
+        reject(err);
+      }
+    });
+  });
+
+export const UploadVideoRequre = (url: any) =>
+  new Promise((resolve, reject) => {
+    uni.uploadFile({
+      url: getBaseUrl() + '/keep/coach/tx/video',
       filePath: url,
       name: 'file',
       header: {
@@ -57,9 +75,18 @@ export const EditUserInfo = (data: TuserInfo) =>
     data: data
   });
 
-export const AddFeetback = (data: Tfeetback) =>
+export const AddFeetback = (data: any) =>
   requredService({
-    url: '/韬哥反馈',
+    url: '/keep/coach/record',
     method: 'post',
     data: data
+  });
+
+/**账号绑定角色或者wxCode*/
+export const EditAccountRoleOrWxcode = (data: any) =>
+  requredService({
+    url: '/keep/user/login',
+    data,
+    method: 'put',
+    successMsg: '修改成功'
   });

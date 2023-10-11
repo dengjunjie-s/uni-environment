@@ -11,7 +11,7 @@
             v-for="item in pageList"
             :key="item.id"
             @click="toDetails(item)"
-            :title="item.name"
+            :title="item.userName"
           />
         </u-cell-group>
         <u-empty v-if="!pageList.length" />
@@ -22,19 +22,20 @@
 
 <script setup lang="ts">
 import useTurn from '@/hooks/useTurn';
-import { GetRolePage } from '@/apis/role';
+import { GetAccountPage } from '@/apis/administrators';
+import { setform } from '@/utils/uniStorage';
 import useUserStore from '@/stores/userStore';
 const userStore = useUserStore();
 const { pageList, nextPage, refreshPage } = useTurn(
   async (params: TPageParams) => {
-    return await GetRolePage({ ...params, staffId: userStore.userId });
+    return await GetAccountPage({ ...params });
   }
 );
 
 const toDetails = (item?: any) => {
-  userStore.formJson = JSON.stringify(item);
+  setform(1, JSON.stringify(item));
   uni.navigateTo({
-    url: '/pages/Coach/Me/Administrators/Role/RoleDetails/index'
+    url: '/pages/Coach/Me/Administrators/Account/AccountDetails/index'
   });
 };
 
