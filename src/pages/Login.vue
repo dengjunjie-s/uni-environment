@@ -22,7 +22,7 @@
       </view>
       <view class="formItem">
         <radio @tap="radioChange" :value="true" :checked="agree" />
-        登录请先同意 <text @tap="popupShow = true">《用户协议》</text>
+        登录请先同意 <text @tap="popupShow = true">《隐私协议》</text>
       </view>
       <view class="formItem">
         <u-button type="primary" @click="sub"> 登录 </u-button>
@@ -194,8 +194,8 @@ const form = reactive<{
   passWord?: string;
   wxCode?: string;
 }>({
-  mobile: '15814885346',
-  passWord: '123'
+  // mobile: '15814885346',
+  // passWord: '123'
   // mobile: '',
   // passWord: ''
 });

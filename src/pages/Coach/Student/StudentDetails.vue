@@ -11,7 +11,7 @@
           <u-form-item label="学员姓名:">
             <u-input v-model="formData.studentName" />
           </u-form-item>
-          <u-form-item label="学员手机号:">
+          <u-form-item label="学员编号:">
             <u-input v-model="formData.studentPhone" />
           </u-form-item>
           <u-form-item label="学员档案:">
@@ -97,7 +97,7 @@ const toSub = async () => {
   if (!formData.studentName) {
     return uni.showToast({ icon: 'none', title: '学员名称未填写' });
   } else if (!formData.studentPhone) {
-    return uni.showToast({ icon: 'none', title: '学员手机号码未填写' });
+    return uni.showToast({ icon: 'none', title: '学员编号码未填写' });
   } else if (!formData.avatar) {
     return uni.showToast({ icon: 'none', title: '学员头像未选择' });
   }

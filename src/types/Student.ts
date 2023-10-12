@@ -30,7 +30,7 @@ export interface TStudent {
    */
   studentName?: string;
   /**
-   * 学员手机号码
+   * 学员编号码
    */
   studentPhone?: string;
   /**

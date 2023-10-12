@@ -15,7 +15,7 @@
         <u-form-item label="反馈信息" prop="text" borderBottom>
           <u-textarea v-model="formData.text" placeholder="请输入内容" />
         </u-form-item>
-        <u-form-item label="联系方式" prop="phoneOrMail" borderBottom>
+        <u-form-item label="备注" prop="phoneOrMail" borderBottom>
           <u-input v-model="formData.phoneOrMail" placeholder="请输入内容" />
         </u-form-item>
         <u-form-item label="图片" prop="imgStr" borderBottom>
